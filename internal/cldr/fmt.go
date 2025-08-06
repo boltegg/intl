@@ -11,6 +11,7 @@ type TimeReader interface {
 	Day() int
 	Hour() int
 	Minute() int
+	Second() int
 }
 
 type Fmt []FmtFunc
@@ -99,4 +100,16 @@ type MinuteTwoDigit Digits
 
 func (m MinuteTwoDigit) Format(b *strings.Builder, t TimeReader) {
 	Digits(m).appendTwoDigit(b, t.Minute())
+}
+
+type SecondNumeric Digits
+
+func (s SecondNumeric) Format(b *strings.Builder, t TimeReader) {
+	Digits(s).appendNumeric(b, t.Second())
+}
+
+type SecondTwoDigit Digits
+
+func (s SecondTwoDigit) Format(b *strings.Builder, t TimeReader) {
+	Digits(s).appendTwoDigit(b, t.Second())
 }

@@ -18,7 +18,7 @@ Go version 1.23+.
 | day                    |    ✅︎    |
 | hour                   |    ✅︎    |
 | minute                 |    ✅︎    |
-| second                 |    ❌     |
+| second                 |    ✅︎    |
 | fractionalSecondDigits |    ❌     |
 | weekday                |    ❌     |
 | hourCycle              |    ❌     |

@@ -71,6 +71,15 @@ func (t *Test) String() string {
 		sb.WriteString(t.Options.Minute.String())
 	}
 
+	if !t.Options.Second.und() {
+		if sb.Len() > 0 {
+			sb.WriteRune(',')
+		}
+
+		sb.WriteString("second=")
+		sb.WriteString(t.Options.Second.String())
+	}
+
 	if sb.Len() > 0 {
 		sb.WriteRune(',')
 	}
@@ -135,6 +144,10 @@ func (t *Test) UnmarshalJSON(b []byte) error {
 
 		if v, ok := o["minute"].(string); ok {
 			test.Options.Minute = MustParseMinute(v)
+		}
+
+		if v, ok := o["second"].(string); ok {
+			test.Options.Second = MustParseSecond(v)
 		}
 	}
 
