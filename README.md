@@ -17,7 +17,7 @@ Go version 1.23+.
 | month                  |    ✅︎    |
 | day                    |    ✅︎    |
 | hour                   |    ✅︎    |
-| minute                 |    ❌     |
+| minute                 |    ✅︎    |
 | second                 |    ❌     |
 | fractionalSecondDigits |    ❌     |
 | weekday                |    ❌     |
