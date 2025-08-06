@@ -46,22 +46,25 @@ function generateTests(locales) {
       [undefined, "numeric", "2-digit"].forEach((year) => {
         [undefined, "numeric", "2-digit"].forEach((month) => {
           [undefined, "numeric", "2-digit"].forEach((day) => {
-            // TODO(jhorsts): skip default formatting for now. It can be resolved when formatting is fully implemented.
-            if (
-              era == undefined &&
-              year === undefined &&
-              month === undefined &&
-              day == undefined
-            ) {
-              return;
-            }
+            [undefined, "numeric", "2-digit"].forEach((hour) => {
+              // TODO(jhorsts): skip default formatting for now. It can be resolved when formatting is fully implemented.
+              if (
+                era == undefined &&
+                year === undefined &&
+                month === undefined &&
+                day == undefined &&
+                hour == undefined
+              ) {
+                return;
+              }
 
-            const options = { era, year, month, day };
+              const options = { era, year, month, day, hour };
 
-            result.push([
-              options,
-              new Intl.DateTimeFormat(locale, options).format(date),
-            ]);
+              result.push([
+                options,
+                new Intl.DateTimeFormat(locale, options).format(date),
+              ]);
+            });
           });
         });
       });

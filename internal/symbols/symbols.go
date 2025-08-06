@@ -62,6 +62,8 @@ const (
 	Symbol_LLLLL // LLLLL, stand-alone narrow
 	Symbol_MMM   // MMM, format abbreviated
 	Symbol_MMMMM // MMMMM, format narrow
+	Symbol_H     // H, hour
+	Symbol_HH    // HH, two-digit hour
 )
 
 func (s Symbol) String() string {
@@ -185,6 +187,10 @@ func (s *Seq) Func() func(cldr.TimeReader) string {
 			symFmt = cldr.DayNumeric(digits)
 		case Symbol_dd:
 			symFmt = cldr.DayTwoDigit(digits)
+		case Symbol_H:
+			symFmt = cldr.HourNumeric(digits)
+		case Symbol_HH:
+			symFmt = cldr.HourTwoDigit(digits)
 		case MonthUnit:
 			symFmt = cldr.Text(cldr.UnitName(s.locale).Month)
 		case DayUnit:

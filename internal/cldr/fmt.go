@@ -9,6 +9,7 @@ type TimeReader interface {
 	Year() int
 	Month() time.Month
 	Day() int
+	Hour() int
 }
 
 type Fmt []FmtFunc
@@ -73,4 +74,16 @@ type DayTwoDigit Digits
 
 func (d DayTwoDigit) Format(b *strings.Builder, t TimeReader) {
 	Digits(d).appendTwoDigit(b, t.Day())
+}
+
+type HourNumeric Digits
+
+func (h HourNumeric) Format(b *strings.Builder, t TimeReader) {
+	Digits(h).appendNumeric(b, t.Hour())
+}
+
+type HourTwoDigit Digits
+
+func (h HourTwoDigit) Format(b *strings.Builder, t TimeReader) {
+	Digits(h).appendTwoDigit(b, t.Hour())
 }

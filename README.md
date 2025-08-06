@@ -16,7 +16,7 @@ Go version 1.23+.
 | year                   |    ✅︎    |
 | month                  |    ✅︎    |
 | day                    |    ✅︎    |
-| hour                   |    ❌     |
+| hour                   |    ✅︎    |
 | minute                 |    ❌     |
 | second                 |    ❌     |
 | fractionalSecondDigits |    ❌     |

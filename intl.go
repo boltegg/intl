@@ -364,6 +364,77 @@ func ParseDay(s string) (Day, error) {
 	}
 }
 
+// Hour is hour option for [Options].
+type Hour byte
+
+const (
+	HourUnd Hour = iota
+	HourNumeric
+	Hour2Digit
+)
+
+// MustParseHour converts a string representation of an hour format to the [Hour] type.
+// It panics if the input string is not a valid hour format.
+func MustParseHour(s string) Hour {
+	v, err := ParseHour(s)
+	if err != nil {
+		panic(err)
+	}
+
+	return v
+}
+
+// String returns the string representation of the Hour format.
+// It converts the Hour constant to its corresponding string value.
+//
+// Returns:
+//   - "numeric" for [HourNumeric]
+//   - "2-digit" for [Hour2Digit]
+//   - "" for any other value (including [HourUnd])
+func (h Hour) String() string {
+	switch h {
+	default:
+		return ""
+	case HourNumeric:
+		return "numeric"
+	case Hour2Digit:
+		return "2-digit"
+	}
+}
+
+func (h Hour) und() bool      { return h == HourUnd }
+func (h Hour) numeric() bool  { return h == HourNumeric }
+func (h Hour) twoDigit() bool { return h == Hour2Digit }
+
+func (h Hour) symbol() symbols.Symbol {
+	if h.twoDigit() {
+		return symbols.Symbol_HH
+	}
+
+	return symbols.Symbol_H
+}
+
+// ParseHour converts a string representation of a hour format to the [Hour] type.
+//
+// Parameters:
+//   - s: A string representing the hour format. Valid values are "numeric", "2-digit", or an empty string.
+//
+// Returns:
+//   - Hour: The corresponding [Hour] constant ([HourNumeric], [Hour2Digit], or [HourUnd]).
+//   - error: An error if the input string is not a valid hour format.
+func ParseHour(s string) (Hour, error) {
+	switch s {
+	default:
+		return HourUnd, fmt.Errorf(`bad hour value "%s", want "numeric", "2-digit" or ""`, s)
+	case "":
+		return HourUnd, nil
+	case "numeric":
+		return HourNumeric, nil
+	case "2-digit":
+		return Hour2Digit, nil
+	}
+}
+
 // Options defines configuration parameters for [NewDateTimeFormat].
 // It allows customization of the date and time representations in formatted output.
 type Options struct {
@@ -371,6 +442,7 @@ type Options struct {
 	Year  Year
 	Month Month
 	Day   Day
+	Hour  Hour
 }
 
 // DateTimeFormat encapsulates the configuration and functionality for
@@ -440,6 +512,8 @@ func gregorianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqMonth(locale, opts.Month)
 	case !opts.Day.und():
 		seq = seqDay(locale, opts.Day)
+	case !opts.Hour.und():
+		seq = seqHour(locale, opts.Hour)
 	}
 
 	return seq.Func()
@@ -480,6 +554,8 @@ func persianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqMonthPersian(locale, opts.Month)
 	case !opts.Day.und():
 		seq = seqDayPersian(locale, opts.Day)
+	case !opts.Hour.und():
+		seq = seqHourPersian(locale, opts.Hour)
 	}
 
 	f := seq.Func()
@@ -525,6 +601,8 @@ func buddhistDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqMonthBuddhist(locale, opts.Month)
 	case !opts.Day.und():
 		seq = seqDayBuddhist(locale, opts.Day)
+	case !opts.Hour.und():
+		seq = seqHourBuddhist(locale, opts.Hour)
 	}
 
 	f := seq.Func()
@@ -547,4 +625,8 @@ func (p persionTime) Month() time.Month {
 
 func (p persionTime) Day() int {
 	return ptime.Time(p).Day()
+}
+
+func (p persionTime) Hour() int {
+	return ptime.Time(p).Hour()
 }
