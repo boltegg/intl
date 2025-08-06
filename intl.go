@@ -726,10 +726,12 @@ func gregorianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqEraDay(locale, opts)
 	case !opts.Era.und():
 		seq = seqEraYearMonthDay(locale, opts)
-	case !opts.Year.und() && !opts.Month.und() && !opts.Day.und():
-		seq = seqYearMonthDay(locale, opts)
 	case !opts.Year.und() && !opts.Month.und() && !opts.Weekday.und() && !opts.Hour.und() && !opts.Minute.und():
 		seq = seqYearMonthWeekdayTime(locale, opts)
+	case !opts.Year.und() && !opts.Month.und() && !opts.Day.und() && !opts.Weekday.und():
+		seq = seqWeekdayYearMonthDay(locale, opts)
+	case !opts.Year.und() && !opts.Month.und() && !opts.Day.und():
+		seq = seqYearMonthDay(locale, opts)
 	case !opts.Year.und() && !opts.Month.und():
 		seq = seqYearMonth(locale, opts)
 	case !opts.Year.und() && !opts.Day.und():
@@ -784,10 +786,12 @@ func persianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqEraDayPersian(locale, opts)
 	case !opts.Era.und():
 		seq = seqEraYearMonthDayPersian(locale, opts)
-	case !opts.Year.und() && !opts.Month.und() && !opts.Day.und():
-		seq = seqYearMonthDayPersian(locale, opts)
 	case !opts.Year.und() && !opts.Month.und() && !opts.Weekday.und() && !opts.Hour.und() && !opts.Minute.und():
 		seq = seqYearMonthWeekdayTime(locale, opts)
+	case !opts.Year.und() && !opts.Month.und() && !opts.Day.und() && !opts.Weekday.und():
+		seq = seqWeekdayYearMonthDayPersian(locale, opts)
+	case !opts.Year.und() && !opts.Month.und() && !opts.Day.und():
+		seq = seqYearMonthDayPersian(locale, opts)
 	case !opts.Year.und() && !opts.Month.und():
 		seq = seqYearMonthPersian(locale, opts)
 	case !opts.Year.und() && !opts.Day.und():
@@ -847,10 +851,12 @@ func buddhistDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqEraDayBuddhist(locale, opts)
 	case !opts.Era.und():
 		seq = seqEraYearMonthDayBuddhist(locale, opts)
-	case !opts.Year.und() && !opts.Month.und() && !opts.Day.und():
-		seq = seqYearMonthDayBuddhist(locale, opts)
 	case !opts.Year.und() && !opts.Month.und() && !opts.Weekday.und() && !opts.Hour.und() && !opts.Minute.und():
 		seq = seqYearMonthWeekdayTime(locale, opts)
+	case !opts.Year.und() && !opts.Month.und() && !opts.Day.und() && !opts.Weekday.und():
+		seq = seqWeekdayYearMonthDayBuddhist(locale, opts)
+	case !opts.Year.und() && !opts.Month.und() && !opts.Day.und():
+		seq = seqYearMonthDayBuddhist(locale, opts)
 	case !opts.Year.und() && !opts.Month.und():
 		seq = seqYearMonthBuddhist(locale, opts)
 	case !opts.Year.und() && !opts.Day.und():
