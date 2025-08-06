@@ -485,6 +485,77 @@ func (m Minute) symbol() symbols.Symbol {
 	return symbols.Symbol_m
 }
 
+// Second is second option for [Options].
+type Second byte
+
+const (
+	SecondUnd Second = iota
+	SecondNumeric
+	Second2Digit
+)
+
+// MustParseSecond converts a string representation of a second format to the [Second] type.
+// It panics if the input string is not a valid second format.
+func MustParseSecond(s string) Second {
+	v, err := ParseSecond(s)
+	if err != nil {
+		panic(err)
+	}
+
+	return v
+}
+
+// String returns the string representation of the Second format.
+// It converts the Second constant to its corresponding string value.
+//
+// Returns:
+//   - "numeric" for [SecondNumeric]
+//   - "2-digit" for [Second2Digit]
+//   - "" for any other value (including [SecondUnd])
+func (s Second) String() string {
+	switch s {
+	default:
+		return ""
+	case SecondNumeric:
+		return "numeric"
+	case Second2Digit:
+		return "2-digit"
+	}
+}
+
+func (s Second) und() bool      { return s == SecondUnd }
+func (s Second) numeric() bool  { return s == SecondNumeric }
+func (s Second) twoDigit() bool { return s == Second2Digit }
+
+func (s Second) symbol() symbols.Symbol {
+	if s.twoDigit() {
+		return symbols.Symbol_ss
+	}
+
+	return symbols.Symbol_s
+}
+
+// ParseSecond converts a string representation of a second format to the [Second] type.
+//
+// Parameters:
+//   - s: A string representing the second format. Valid values are "numeric", "2-digit", or an empty string.
+//
+// Returns:
+//   - Second: The corresponding [Second] constant ([SecondNumeric], [Second2Digit], or [SecondUnd]).
+//   - error: An error if the input string is not a valid second format.
+func ParseSecond(s string) (Second, error) {
+	switch s {
+	default:
+		return SecondUnd, fmt.Errorf(`bad second value "%s", want "numeric", "2-digit" or ""`, s)
+	case "":
+		return SecondUnd, nil
+	case "numeric":
+		return SecondNumeric, nil
+	case "2-digit":
+		return Second2Digit, nil
+	}
+}
+
 // ParseMinute converts a string representation of a minute format to the [Minute] type.
 //
 // Parameters:
@@ -515,6 +586,7 @@ type Options struct {
 	Day    Day
 	Hour   Hour
 	Minute Minute
+	Second Second
 }
 
 // DateTimeFormat encapsulates the configuration and functionality for
@@ -584,12 +656,18 @@ func gregorianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqMonth(locale, opts.Month)
 	case !opts.Day.und():
 		seq = seqDay(locale, opts.Day)
+	case !opts.Hour.und() && !opts.Minute.und() && !opts.Second.und():
+		seq = seqHourMinuteSecond(locale, opts)
+	case !opts.Minute.und() && !opts.Second.und():
+		seq = seqMinuteSecond(locale, opts)
 	case !opts.Hour.und() && !opts.Minute.und():
 		seq = seqHourMinute(locale, opts)
 	case !opts.Hour.und():
 		seq = seqHour(locale, opts.Hour)
 	case !opts.Minute.und():
 		seq = seqMinute(locale, opts.Minute)
+	case !opts.Second.und():
+		seq = seqSecond(locale, opts.Second)
 	}
 
 	return seq.Func()
@@ -630,12 +708,18 @@ func persianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqMonthPersian(locale, opts.Month)
 	case !opts.Day.und():
 		seq = seqDayPersian(locale, opts.Day)
+	case !opts.Hour.und() && !opts.Minute.und() && !opts.Second.und():
+		seq = seqHourMinuteSecondPersian(locale, opts)
+	case !opts.Minute.und() && !opts.Second.und():
+		seq = seqMinuteSecondPersian(locale, opts)
 	case !opts.Hour.und() && !opts.Minute.und():
 		seq = seqHourMinutePersian(locale, opts)
 	case !opts.Hour.und():
 		seq = seqHourPersian(locale, opts.Hour)
 	case !opts.Minute.und():
 		seq = seqMinutePersian(locale, opts.Minute)
+	case !opts.Second.und():
+		seq = seqSecondPersian(locale, opts.Second)
 	}
 
 	f := seq.Func()
@@ -681,12 +765,18 @@ func buddhistDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqMonthBuddhist(locale, opts.Month)
 	case !opts.Day.und():
 		seq = seqDayBuddhist(locale, opts.Day)
+	case !opts.Hour.und() && !opts.Minute.und() && !opts.Second.und():
+		seq = seqHourMinuteSecondBuddhist(locale, opts)
+	case !opts.Minute.und() && !opts.Second.und():
+		seq = seqMinuteSecondBuddhist(locale, opts)
 	case !opts.Hour.und() && !opts.Minute.und():
 		seq = seqHourMinuteBuddhist(locale, opts)
 	case !opts.Hour.und():
 		seq = seqHourBuddhist(locale, opts.Hour)
 	case !opts.Minute.und():
 		seq = seqMinuteBuddhist(locale, opts.Minute)
+	case !opts.Second.und():
+		seq = seqSecondBuddhist(locale, opts.Second)
 	}
 
 	f := seq.Func()
@@ -717,4 +807,8 @@ func (p persionTime) Hour() int {
 
 func (p persionTime) Minute() int {
 	return ptime.Time(p).Minute()
+}
+
+func (p persionTime) Second() int {
+	return ptime.Time(p).Second()
 }
