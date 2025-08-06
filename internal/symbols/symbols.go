@@ -68,6 +68,9 @@ const (
 	Symbol_mm    // mm, two-digit minute
 	Symbol_s     // s, second
 	Symbol_ss    // ss, two-digit second
+	Symbol_E     // E, weekday short
+	Symbol_EEEE  // EEEE, weekday long
+	Symbol_EEEEE // EEEEE, weekday narrow
 )
 
 func (s Symbol) String() string {
@@ -203,6 +206,15 @@ func (s *Seq) Func() func(cldr.TimeReader) string {
 			symFmt = cldr.SecondNumeric(digits)
 		case Symbol_ss:
 			symFmt = cldr.SecondTwoDigit(digits)
+		case Symbol_E:
+			names := cldr.WeekdayNames(s.locale.String(), "abbreviated")
+			symFmt = cldr.Weekday(names)
+		case Symbol_EEEE:
+			names := cldr.WeekdayNames(s.locale.String(), "wide")
+			symFmt = cldr.Weekday(names)
+		case Symbol_EEEEE:
+			names := cldr.WeekdayNames(s.locale.String(), "narrow")
+			symFmt = cldr.Weekday(names)
 		case MonthUnit:
 			symFmt = cldr.Text(cldr.UnitName(s.locale).Month)
 		case DayUnit:

@@ -53,6 +53,15 @@ func (t *Test) String() string {
 		sb.WriteString(t.Options.Day.String())
 	}
 
+	if !t.Options.Weekday.und() {
+		if sb.Len() > 0 {
+			sb.WriteRune(',')
+		}
+
+		sb.WriteString("weekday=")
+		sb.WriteString(t.Options.Weekday.String())
+	}
+
 	if !t.Options.Hour.und() {
 		if sb.Len() > 0 {
 			sb.WriteRune(',')
@@ -136,6 +145,10 @@ func (t *Test) UnmarshalJSON(b []byte) error {
 
 		if v, ok := o["day"].(string); ok {
 			test.Options.Day = MustParseDay(v)
+		}
+
+		if v, ok := o["weekday"].(string); ok {
+			test.Options.Weekday = MustParseWeekday(v)
 		}
 
 		if v, ok := o["hour"].(string); ok {

@@ -9,6 +9,7 @@ type TimeReader interface {
 	Year() int
 	Month() time.Month
 	Day() int
+	Weekday() time.Weekday
 	Hour() int
 	Minute() int
 	Second() int
@@ -64,6 +65,12 @@ type Month CalendarMonths
 
 func (m Month) Format(b *strings.Builder, t TimeReader) {
 	b.WriteString(m[t.Month()-1])
+}
+
+type Weekday CalendarWeekdays
+
+func (w Weekday) Format(b *strings.Builder, t TimeReader) {
+	b.WriteString(w[t.Weekday()])
 }
 
 type DayNumeric Digits
