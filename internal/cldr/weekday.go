@@ -15,13 +15,7 @@ var weekdayData = map[string]map[string]CalendarWeekdays{
 		"narrow":      {"Н", "П", "В", "С", "Ч", "П", "С"},
 	},
 	"ru": {
-		// CLDR uses lowercase weekday abbreviations for Russian.
-		// See https://unicode-org.github.io/cldr-staging/charts/43/summary/ru.html
-		// The previous implementation returned capitalized forms ("Вт"),
-		// which caused tests like WeekdayMonthDay to fail because the
-		// expected output is "вт, 2 января".  The data below now matches
-		// the CLDR-provided lowercase abbreviations.
-		"abbreviated": {"вс", "пн", "вт", "ср", "чт", "пт", "сб"},
+		"abbreviated": {"Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"},
 		"wide":        {"воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"},
 		"narrow":      {"В", "П", "В", "С", "Ч", "П", "С"},
 	},
