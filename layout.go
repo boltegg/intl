@@ -51,6 +51,9 @@ func ParseLayout(layout string) (Options, error) {
 			default:
 				opts.Month = MonthNarrow
 			}
+			if ch == 'L' {
+				opts.MonthStandalone = true
+			}
 		case 'Q':
 			if count >= 4 {
 				opts.Quarter = QuarterLong

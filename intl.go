@@ -240,7 +240,7 @@ func (m Month) twoDigit() bool { return m == Month2Digit }
 
 func (m Month) symbolFormat() symbols.Symbol { return m.symbol("format") }
 
-// func (m Month) symbolStandAlone() symbols.Symbol { return m.symbol("stand-alone") }
+func (m Month) symbolStandAlone() symbols.Symbol { return m.symbol("stand-alone") }
 
 // TODO(jhorsts): define iota for context values.
 func (m Month) symbol(context string) symbols.Symbol {
@@ -739,15 +739,16 @@ func ParseMinute(s string) (Minute, error) {
 // Options defines configuration parameters for [NewDateTimeFormat].
 // It allows customization of the date and time representations in formatted output.
 type Options struct {
-	Era     Era
-	Year    Year
-	Month   Month
-	Quarter Quarter
-	Day     Day
-	Weekday Weekday
-	Hour    Hour
-	Minute  Minute
-	Second  Second
+	Era             Era
+	Year            Year
+	Month           Month
+	MonthStandalone bool
+	Quarter         Quarter
+	Day             Day
+	Weekday         Weekday
+	Hour            Hour
+	Minute          Minute
+	Second          Second
 }
 
 // DateTimeFormat encapsulates the configuration and functionality for
@@ -825,10 +826,14 @@ func gregorianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqWeekdayMonthDay(locale, opts)
 	case !opts.Month.und() && !opts.Day.und():
 		seq = seqMonthDay(locale, opts)
+	case !opts.Month.und() && opts.MonthStandalone:
+		seq = seqMonthStandalone(locale, opts.Month)
 	case !opts.Month.und():
 		seq = seqMonth(locale, opts.Month)
 	case !opts.Weekday.und() && !opts.Hour.und() && !opts.Minute.und():
 		seq = seqWeekdayTime(locale, opts)
+	case !opts.Weekday.und():
+		seq = seqWeekday(locale, opts.Weekday)
 	case !opts.Day.und():
 		seq = seqDay(locale, opts.Day)
 	case !opts.Hour.und() && !opts.Minute.und() && !opts.Second.und():
@@ -891,10 +896,14 @@ func persianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqWeekdayMonthDayPersian(locale, opts)
 	case !opts.Month.und() && !opts.Day.und():
 		seq = seqMonthDayPersian(locale, opts)
+	case !opts.Month.und() && opts.MonthStandalone:
+		seq = seqMonthStandalonePersian(locale, opts.Month)
 	case !opts.Month.und():
 		seq = seqMonthPersian(locale, opts.Month)
 	case !opts.Weekday.und() && !opts.Hour.und() && !opts.Minute.und():
 		seq = seqWeekdayTime(locale, opts)
+	case !opts.Weekday.und():
+		seq = seqWeekdayPersian(locale, opts.Weekday)
 	case !opts.Day.und():
 		seq = seqDayPersian(locale, opts.Day)
 	case !opts.Hour.und() && !opts.Minute.und() && !opts.Second.und():
@@ -962,10 +971,14 @@ func buddhistDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqWeekdayMonthDayBuddhist(locale, opts)
 	case !opts.Month.und() && !opts.Day.und():
 		seq = seqMonthDayBuddhist(locale, opts)
+	case !opts.Month.und() && opts.MonthStandalone:
+		seq = seqMonthStandaloneBuddhist(locale, opts.Month)
 	case !opts.Month.und():
 		seq = seqMonthBuddhist(locale, opts.Month)
 	case !opts.Weekday.und() && !opts.Hour.und() && !opts.Minute.und():
 		seq = seqWeekdayTime(locale, opts)
+	case !opts.Weekday.und():
+		seq = seqWeekdayBuddhist(locale, opts.Weekday)
 	case !opts.Day.und():
 		seq = seqDayBuddhist(locale, opts.Day)
 	case !opts.Hour.und() && !opts.Minute.und() && !opts.Second.und():

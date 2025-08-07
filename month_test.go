@@ -29,6 +29,29 @@ func TestDateTimeFormat_Month(t *testing.T) {
 	}
 }
 
+func TestDateTimeFormat_MonthStandalone(t *testing.T) {
+	t.Parallel()
+	date := time.Date(2024, 1, 2, 3, 4, 5, 0, time.UTC)
+	tests := []struct {
+		opt  Month
+		want string
+	}{
+		{MonthShort, "Jan"},
+		{MonthLong, "January"},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.opt.String(), func(t *testing.T) {
+			t.Parallel()
+			got := NewDateTimeFormat(language.English, Options{Month: tt.opt, MonthStandalone: true}).Format(date)
+			if got != tt.want {
+				t.Fatalf("want %q got %q", tt.want, got)
+			}
+		})
+	}
+}
+
 func TestDateTimeFormat_MonthDay(t *testing.T) {
 	t.Parallel()
 	date := time.Date(2024, 1, 2, 3, 4, 5, 0, time.UTC)

@@ -7,6 +7,31 @@ import (
 	"golang.org/x/text/language"
 )
 
+func TestDateTimeFormat_Weekday(t *testing.T) {
+	t.Parallel()
+
+	date := time.Date(2024, 1, 2, 3, 4, 5, 0, time.UTC)
+
+	tests := []struct {
+		opt  Weekday
+		want string
+	}{
+		{WeekdayShort, "Tue"},
+		{WeekdayLong, "Tuesday"},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.opt.String(), func(t *testing.T) {
+			t.Parallel()
+			got := NewDateTimeFormat(language.English, Options{Weekday: tt.opt}).Format(date)
+			if got != tt.want {
+				t.Fatalf("want %q got %q", tt.want, got)
+			}
+		})
+	}
+}
+
 func TestDateTimeFormat_WeekdayTime(t *testing.T) {
 	t.Parallel()
 	date := time.Date(2024, 1, 2, 3, 4, 5, 0, time.UTC)
