@@ -13,8 +13,8 @@ func TestDateTimeFormat_Layout_Hms(t *testing.T) {
 	date := time.Date(2024, 1, 2, 3, 4, 5, 0, time.UTC)
 	got := NewDateTimeFormatLayout(language.Persian, "Hms").Format(date)
 
-	if got != "۳:۴:۵" {
-		t.Fatalf("want %q got %q", "۳:۴:۵", got)
+	if got != "۰۳:۰۴:۰۵" {
+		t.Fatalf("want %q got %q", "۰۳:۰۴:۰۵", got)
 	}
 }
 
@@ -44,17 +44,17 @@ func TestDateTimeFormat_Layout_Patterns(t *testing.T) {
 		{"d", "2"},
 		{"E", "Tue"},
 		{"EEEE", "Tuesday"},
-		{"H", "3"},
-		{"Hm", "3:4"},
-		{"Hms", "3:4:5"},
+		{"H", "03"},
+		{"Hm", "03:04"},
+		{"Hms", "03:04:05"},
 		{"LLL", "Jan"},
 		{"LLLL", "January"},
-		{"j", "3"},
-		{"jm", "3:4"},
-		{"jms", "3:4:5"},
-		{"m", "4"},
-		{"ms", "4:5"},
-		{"s", "5"},
+		{"j", "03"},
+		{"jm", "03:04"},
+		{"jms", "03:04:05"},
+		{"m", "04"},
+		{"ms", "04:05"},
+		{"s", "05"},
 	}
 
 	for _, tt := range tests {
