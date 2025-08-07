@@ -27,9 +27,9 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/boltegg/intl/internal/cldr"
+	"github.com/boltegg/intl/internal/symbols"
 	ptime "github.com/yaa110/go-persian-calendar"
-	"go.expect.digital/intl/internal/cldr"
-	"go.expect.digital/intl/internal/symbols"
 	"golang.org/x/text/language"
 )
 

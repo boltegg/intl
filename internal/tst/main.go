@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"go.expect.digital/intl"
+	"github.com/boltegg/intl"
 	"golang.org/x/text/language"
 )
 

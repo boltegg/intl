@@ -1,8 +1,8 @@
 package intl
 
 import (
-	"go.expect.digital/intl/internal/cldr"
-	"go.expect.digital/intl/internal/symbols"
+	"github.com/boltegg/intl/internal/cldr"
+	"github.com/boltegg/intl/internal/symbols"
 	"golang.org/x/text/language"
 )
 
