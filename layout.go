@@ -14,6 +14,12 @@ import (
 func ParseLayout(layout string) (Options, error) {
 	var opts Options
 
+	// single minute or second layouts should use numeric form without
+	// zero-padding. When other fields are present, minutes and seconds
+	// should be rendered in two-digit form for consistency.
+	onlyMinute := layout == "m"
+	onlySecond := layout == "s"
+
 	for i := 0; i < len(layout); {
 		ch := layout[i]
 		j := i + 1
@@ -82,13 +88,13 @@ func ParseLayout(layout string) (Options, error) {
 				opts.Hour = HourNumeric
 			}
 		case 'm':
-			if count == 2 {
+			if count == 2 || !onlyMinute {
 				opts.Minute = Minute2Digit
 			} else {
 				opts.Minute = MinuteNumeric
 			}
 		case 's':
-			if count == 2 {
+			if count == 2 || !onlySecond {
 				opts.Second = Second2Digit
 			} else {
 				opts.Second = SecondNumeric
