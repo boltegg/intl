@@ -299,6 +299,76 @@ func ParseMonth(s string) (Month, error) {
 	}
 }
 
+// Quarter represents the format for displaying quarters.
+type Quarter byte
+
+const (
+	QuarterUnd Quarter = iota
+	QuarterShort
+	QuarterLong
+)
+
+// MustParseQuarter converts a string representation of a quarter format to the [Quarter] type.
+// It panics if the input string is not a valid quarter format.
+func MustParseQuarter(s string) Quarter {
+	v, err := ParseQuarter(s)
+	if err != nil {
+		panic(err)
+	}
+
+	return v
+}
+
+// String returns the string representation of the Quarter format.
+// It converts the Quarter constant to its corresponding string value.
+//
+// Returns:
+//   - "short" for [QuarterShort]
+//   - "long" for [QuarterLong]
+//   - "" for any other value (including [QuarterUnd])
+func (q Quarter) String() string {
+	switch q {
+	default:
+		return ""
+	case QuarterShort:
+		return "short"
+	case QuarterLong:
+		return "long"
+	}
+}
+
+func (q Quarter) und() bool   { return q == QuarterUnd }
+func (q Quarter) short() bool { return q == QuarterShort }
+
+func (q Quarter) symbol() symbols.Symbol {
+	if q == QuarterLong {
+		return symbols.Symbol_QQQQ
+	}
+
+	return symbols.Symbol_QQQ
+}
+
+// ParseQuarter converts a string representation of a quarter format to the [Quarter] type.
+//
+// Parameters:
+//   - s: A string representing the quarter format. Valid values are "long", "short", or an empty string.
+//
+// Returns:
+//   - Quarter: The corresponding [Quarter] constant ([QuarterLong], [QuarterShort], or [QuarterUnd]).
+//   - error: An error if the input string is not a valid quarter format.
+func ParseQuarter(s string) (Quarter, error) {
+	switch s {
+	default:
+		return QuarterUnd, fmt.Errorf(`bad quarter value "%s", want "long", "short" or ""`, s)
+	case "":
+		return QuarterUnd, nil
+	case "short":
+		return QuarterShort, nil
+	case "long":
+		return QuarterLong, nil
+	}
+}
+
 // Day represents the format for displaying days.
 type Day byte
 
@@ -672,6 +742,7 @@ type Options struct {
 	Era     Era
 	Year    Year
 	Month   Month
+	Quarter Quarter
 	Day     Day
 	Weekday Weekday
 	Hour    Hour
@@ -740,6 +811,8 @@ func gregorianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqYearMonthDay(locale, opts)
 	case !opts.Year.und() && !opts.Month.und():
 		seq = seqYearMonth(locale, opts)
+	case !opts.Year.und() && !opts.Quarter.und():
+		seq = seqYearQuarter(locale, opts)
 	case !opts.Year.und() && !opts.Day.und():
 		seq = seqYearDay(locale, opts)
 	case !opts.Year.und():
@@ -802,6 +875,8 @@ func persianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqYearMonthDayPersian(locale, opts)
 	case !opts.Year.und() && !opts.Month.und():
 		seq = seqYearMonthPersian(locale, opts)
+	case !opts.Year.und() && !opts.Quarter.und():
+		seq = seqYearQuarterPersian(locale, opts)
 	case !opts.Year.und() && !opts.Day.und():
 		seq = seqYearDayPersian(locale, opts)
 	case !opts.Year.und():
@@ -869,6 +944,8 @@ func buddhistDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqYearMonthDayBuddhist(locale, opts)
 	case !opts.Year.und() && !opts.Month.und():
 		seq = seqYearMonthBuddhist(locale, opts)
+	case !opts.Year.und() && !opts.Quarter.und():
+		seq = seqYearQuarterBuddhist(locale, opts)
 	case !opts.Year.und() && !opts.Day.und():
 		seq = seqYearDayBuddhist(locale, opts)
 	case !opts.Year.und():
