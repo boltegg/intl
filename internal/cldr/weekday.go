@@ -1,5 +1,7 @@
 package cldr
 
+import "golang.org/x/text/language"
+
 // CalendarWeekdays stores localized weekday names.
 type CalendarWeekdays [7]string
 
@@ -22,12 +24,24 @@ var weekdayData = map[string]map[string]CalendarWeekdays{
 }
 
 // WeekdayNames returns localized weekday names for the given locale and width.
-// If locale is unknown, English names are returned.
+// If the exact locale is unknown, it falls back to the base language before
+// defaulting to English.
 func WeekdayNames(locale, width string) CalendarWeekdays {
 	if m, ok := weekdayData[locale]; ok {
 		if w, ok := m[width]; ok {
 			return w
 		}
+	}
+
+	lang, _ := language.Make(locale).Base()
+	if m, ok := weekdayData[lang.String()]; ok {
+		if w, ok := m[width]; ok {
+			return w
+		}
+	}
+
+	if w, ok := weekdayData["en"][width]; ok {
+		return w
 	}
 
 	return weekdayData["en"]["abbreviated"]

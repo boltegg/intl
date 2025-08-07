@@ -19,3 +19,16 @@ func TestDateTimeFormat_RussianUkraine(t *testing.T) {
 		t.Fatalf("want %q got %q", want, got)
 	}
 }
+
+func TestDateTimeFormat_RussianUkraineWeekday(t *testing.T) {
+	t.Parallel()
+
+	date := time.Date(2024, 3, 27, 0, 0, 0, 0, time.UTC)
+	locale := language.MustParse("ru-UA")
+
+	got := NewDateTimeFormatLayout(locale, "E").Format(date)
+	want := "Ср"
+	if got != want {
+		t.Fatalf("want %q got %q", want, got)
+	}
+}
