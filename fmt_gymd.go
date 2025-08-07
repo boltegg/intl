@@ -67,8 +67,14 @@ func seqEraYearMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 	case cldr.CEB, cldr.CHR, cldr.CY, cldr.BLO, cldr.FIL, cldr.KAA, cldr.MHN, cldr.ML, cldr.NE, cldr.OR, cldr.PS, cldr.SD,
 		cldr.SO, cldr.TI, cldr.XH, cldr.ZU:
 		return seq.Add(opts.Month.symbolFormat(), '/', opts.Day.symbol(), '/', year, ' ', era)
-	case cldr.AR, cldr.IA, cldr.BN, cldr.CA, cldr.MAI, cldr.RM, cldr.UK, cldr.WO:
+	case cldr.AR, cldr.IA, cldr.BN, cldr.CA, cldr.MAI, cldr.RM, cldr.WO:
 		return seq.Add(day, '-', month, '-', year, ' ', era)
+	case cldr.UK:
+		if opts.Month.numeric() || opts.Month.twoDigit() {
+			return seq.Add(day, '-', month, '-', year, ' ', era)
+		}
+
+		return seq.Add(day, ' ', month, ' ', year, symbols.TxtNNBSP, symbols.Txtр, '.', ' ', era)
 	case cldr.LT, cldr.SV:
 		return seq.Add(year, '-', month, '-', day, ' ', era)
 	case cldr.BS:

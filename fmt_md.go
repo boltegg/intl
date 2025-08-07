@@ -125,8 +125,14 @@ func seqMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 		return seq.Add(month, '/', day)
 	case cldr.AR:
 		return seq.Add(day, symbols.Txt02, month)
-	case cldr.AZ, cldr.CV, cldr.FO, cldr.HY, cldr.KK, cldr.KU, cldr.OS, cldr.TK, cldr.TT, cldr.UK:
+	case cldr.AZ, cldr.CV, cldr.FO, cldr.HY, cldr.KK, cldr.KU, cldr.OS, cldr.TK, cldr.TT:
 		return seq.Add(symbols.Symbol_dd, '.', symbols.Symbol_MM)
+	case cldr.UK:
+		if opts.Month.numeric() || opts.Month.twoDigit() {
+			return seq.Add(symbols.Symbol_dd, '.', symbols.Symbol_MM)
+		}
+
+		return seq.Add(day, ' ', month)
 	case cldr.BE, cldr.DA, cldr.ET, cldr.HE, cldr.IE, cldr.JGO, cldr.KA:
 		return seq.Add(day, '.', month)
 	case cldr.MK:

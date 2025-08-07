@@ -11,6 +11,14 @@ func seqMonth(locale language.Tag, opt Month) *symbols.Seq {
 	seq := symbols.NewSeq(locale)
 
 	switch lang {
+	case cldr.BR, cldr.FO, cldr.GA, cldr.LT, cldr.UZ:
+		seq.Add(symbols.Symbol_MM)
+	case cldr.UK:
+		seq.Add(opt.symbolStandAlone())
+	case cldr.MN:
+		seq.Add(symbols.Symbol_LLLLL)
+	case cldr.WAE:
+		seq.Add(symbols.Symbol_LLL)
 	default:
 		seq.Add(opt.symbolFormat())
 
@@ -20,12 +28,6 @@ func seqMonth(locale language.Tag, opt Month) *symbols.Seq {
 		case cldr.JA, cldr.YUE, cldr.ZH, cldr.KO:
 			seq.Add(symbols.MonthUnit)
 		}
-	case cldr.BR, cldr.FO, cldr.GA, cldr.LT, cldr.UK, cldr.UZ:
-		seq.Add(symbols.Symbol_MM)
-	case cldr.MN:
-		seq.Add(symbols.Symbol_LLLLL)
-	case cldr.WAE:
-		seq.Add(symbols.Symbol_LLL)
 	}
 
 	return seq
@@ -36,6 +38,12 @@ func seqMonthStandalone(locale language.Tag, opt Month) *symbols.Seq {
 	seq := symbols.NewSeq(locale)
 
 	switch lang {
+	case cldr.BR, cldr.FO, cldr.GA, cldr.LT, cldr.UZ:
+		seq.Add(symbols.Symbol_MM)
+	case cldr.MN:
+		seq.Add(symbols.Symbol_LLLLL)
+	case cldr.WAE:
+		seq.Add(symbols.Symbol_LLL)
 	default:
 		seq.Add(opt.symbolStandAlone())
 
@@ -45,12 +53,6 @@ func seqMonthStandalone(locale language.Tag, opt Month) *symbols.Seq {
 		case cldr.JA, cldr.YUE, cldr.ZH, cldr.KO:
 			seq.Add(symbols.MonthUnit)
 		}
-	case cldr.BR, cldr.FO, cldr.GA, cldr.LT, cldr.UK, cldr.UZ:
-		seq.Add(symbols.Symbol_MM)
-	case cldr.MN:
-		seq.Add(symbols.Symbol_LLLLL)
-	case cldr.WAE:
-		seq.Add(symbols.Symbol_LLL)
 	}
 
 	return seq

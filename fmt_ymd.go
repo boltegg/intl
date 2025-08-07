@@ -118,7 +118,7 @@ func seqYearMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 		// year=2-digit,month=2-digit,day=numeric,out=٢‏/٠١‏/٢٤
 		// year=2-digit,month=2-digit,day=2-digit,out=٠٢‏/٠١‏/٢٤
 		return seq.Add(day, symbols.Txt02, month, symbols.Txt02, year)
-	case cldr.AZ, cldr.HY, cldr.KK, cldr.UK:
+	case cldr.AZ, cldr.HY, cldr.KK:
 		// year=numeric,month=numeric,day=numeric,out=02.01.2024
 		// year=numeric,month=numeric,day=2-digit,out=02.01.2024
 		// year=numeric,month=2-digit,day=numeric,out=02.01.2024
@@ -132,6 +132,12 @@ func seqYearMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 		}
 
 		return seq.Add(day, '.', month, '.', year)
+	case cldr.UK:
+		if opts.Month.numeric() || opts.Month.twoDigit() {
+			return seq.Add(symbols.Symbol_dd, '.', symbols.Symbol_MM, '.', year)
+		}
+
+		return seq.Add(day, ' ', month, ' ', year, symbols.TxtNNBSP, symbols.Txtр, '.')
 	case cldr.BE, cldr.DA, cldr.DE, cldr.DSB, cldr.ET, cldr.FI, cldr.HE, cldr.HSB, cldr.IE, cldr.IS, cldr.KA, cldr.LB,
 		cldr.NB, cldr.NN, cldr.NO, cldr.SMN, cldr.SQ:
 		// year=numeric,month=numeric,day=numeric,out=2.1.2024
