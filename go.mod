@@ -1,4 +1,4 @@
-module go.expect.digital/intl
+module github.com/boltegg/intl
 
 go 1.23.0
 

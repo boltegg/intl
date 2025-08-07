@@ -15,7 +15,7 @@ import (
 	"text/template"
 	"time"
 
-	"go.expect.digital/intl/internal/gen/cldr"
+	"github.com/boltegg/intl/internal/gen/cldr"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )

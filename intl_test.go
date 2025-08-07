@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"go.expect.digital/intl/internal/cldr"
+	"github.com/boltegg/intl/internal/cldr"
 	"golang.org/x/text/language"
 )
 
