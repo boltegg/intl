@@ -2804,18 +2804,16 @@ var MonthLookup = map[string]monthIndexes{
 	"rof":            {527, 527, 528, 528, 0, 529},
 	"rof-TZ":         {527, 527, 528, 528, 0, 529},
 	"root":           {0, 0, 0, 0, 0, 0},
-	// Use wide month names when formatting dates with abbreviated width
-	// for Russian locales. CLDR specifies genitive month names ("июня",
-	// "июля") in the d MMM y pattern, but the previous data pointed to the
-	// abbreviated forms ("июн.", "июл.").  Adjusting the index ensures the
-	// correct wide forms are returned for format/abbreviated requests.
-	"ru":          {531, 532, 531, 95, 0, 96},
-	"ru-BY":       {531, 532, 531, 95, 0, 96},
-	"ru-KG":       {531, 532, 531, 95, 0, 96},
-	"ru-KZ":       {531, 532, 531, 95, 0, 96},
-	"ru-MD":       {531, 532, 531, 95, 0, 96},
-	"ru-RU":       {531, 532, 531, 95, 0, 96},
-	"ru-UA":       {531, 532, 531, 95, 0, 96},
+	// Russian month formatting mixes abbreviated and wide forms. The lookup
+	// points to the abbreviated month set; specific months are adjusted in
+	// code to match CLDR's format behavior.
+	"ru":          {532, 532, 531, 95, 0, 96},
+	"ru-BY":       {532, 532, 531, 95, 0, 96},
+	"ru-KG":       {532, 532, 531, 95, 0, 96},
+	"ru-KZ":       {532, 532, 531, 95, 0, 96},
+	"ru-MD":       {532, 532, 531, 95, 0, 96},
+	"ru-RU":       {532, 532, 531, 95, 0, 96},
+	"ru-UA":       {532, 532, 531, 95, 0, 96},
 	"rw":          {533, 533, 534, 534, 0, 0},
 	"rw-RW":       {533, 533, 534, 534, 0, 0},
 	"rwk":         {291, 291, 292, 292, 0, 3},
