@@ -19,7 +19,7 @@ func TestDateTimeFormat_Russian(t *testing.T) {
 	}{
 		{"Month", Options{Month: MonthLong}, "январь"},
 		{"MonthDay", Options{Month: MonthLong, Day: DayNumeric}, "2 января"},
-		{"WeekdayMonthDay", Options{Weekday: WeekdayShort, Month: MonthLong, Day: DayNumeric}, "вт, 2 января"},
+		{"WeekdayMonthDay", Options{Weekday: WeekdayShort, Month: MonthLong, Day: DayNumeric}, "Вт, 2 января"},
 		{"WeekdayLongMonthDay", Options{Weekday: WeekdayLong, Month: MonthLong, Day: DayNumeric}, "вторник, 2 января"},
 		{"YearMonthDay", Options{Year: YearNumeric, Month: MonthLong, Day: DayNumeric}, "2 января 2024 г."},
 		{"YearMonth", Options{Year: YearNumeric, Month: MonthLong}, "январь 2024 г."},
