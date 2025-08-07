@@ -59,8 +59,10 @@ const (
 	Symbol_d     // d, day
 	Symbol_dd    // dd, two-digit day
 	Symbol_LLL   // LLL, stand-alone abbreviated
+	Symbol_LLLL  // LLLL, stand-alone wide
 	Symbol_LLLLL // LLLLL, stand-alone narrow
 	Symbol_MMM   // MMM, format abbreviated
+	Symbol_MMMM  // MMMM, format wide
 	Symbol_MMMMM // MMMMM, format narrow
 	Symbol_H     // H, hour
 	Symbol_HH    // HH, two-digit hour
@@ -184,8 +186,14 @@ func (s *Seq) Func() func(cldr.TimeReader) string {
 		case Symbol_MMM:
 			names := cldr.MonthNames(s.locale.String(), "format", "abbreviated")
 			symFmt = cldr.Month(names)
+		case Symbol_MMMM:
+			names := cldr.MonthNames(s.locale.String(), "format", "wide")
+			symFmt = cldr.Month(names)
 		case Symbol_LLLLL:
 			names := cldr.MonthNames(s.locale.String(), "stand-alone", "narrow")
+			symFmt = cldr.Month(names)
+		case Symbol_LLLL:
+			names := cldr.MonthNames(s.locale.String(), "stand-alone", "wide")
 			symFmt = cldr.Month(names)
 		case Symbol_LLL:
 			names := cldr.MonthNames(s.locale.String(), "stand-alone", "abbreviated")

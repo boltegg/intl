@@ -255,12 +255,18 @@ func (m Month) symbol(context string) symbols.Symbol {
 		}
 
 		return symbols.Symbol_LLLLL
-	case MonthLong:
+	case MonthShort:
 		if context == "format" {
 			return symbols.Symbol_MMM
 		}
 
 		return symbols.Symbol_LLL
+	case MonthLong:
+		if context == "format" {
+			return symbols.Symbol_MMMM
+		}
+
+		return symbols.Symbol_LLLL
 	}
 }
 
@@ -740,6 +746,8 @@ func gregorianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqYear(locale, opts.Year)
 	case !opts.Month.und() && !opts.Weekday.und() && !opts.Hour.und() && !opts.Minute.und():
 		seq = seqMonthWeekdayTime(locale, opts)
+	case !opts.Month.und() && !opts.Day.und() && !opts.Weekday.und():
+		seq = seqWeekdayMonthDay(locale, opts)
 	case !opts.Month.und() && !opts.Day.und():
 		seq = seqMonthDay(locale, opts)
 	case !opts.Month.und():
@@ -800,6 +808,8 @@ func persianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqYearPersian(locale, opts.Year)
 	case !opts.Month.und() && !opts.Weekday.und() && !opts.Hour.und() && !opts.Minute.und():
 		seq = seqMonthWeekdayTime(locale, opts)
+	case !opts.Month.und() && !opts.Day.und() && !opts.Weekday.und():
+		seq = seqWeekdayMonthDayPersian(locale, opts)
 	case !opts.Month.und() && !opts.Day.und():
 		seq = seqMonthDayPersian(locale, opts)
 	case !opts.Month.und():
@@ -865,6 +875,8 @@ func buddhistDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqYearBuddhist(locale, opts)
 	case !opts.Month.und() && !opts.Weekday.und() && !opts.Hour.und() && !opts.Minute.und():
 		seq = seqMonthWeekdayTime(locale, opts)
+	case !opts.Month.und() && !opts.Day.und() && !opts.Weekday.und():
+		seq = seqWeekdayMonthDayBuddhist(locale, opts)
 	case !opts.Month.und() && !opts.Day.und():
 		seq = seqMonthDayBuddhist(locale, opts)
 	case !opts.Month.und():

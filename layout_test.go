@@ -24,7 +24,7 @@ func TestDateTimeFormat_Layout_yMMMMEEEEd(t *testing.T) {
 	date := time.Date(2024, 1, 2, 3, 4, 5, 0, time.UTC)
 	got := NewDateTimeFormatLayout(language.English, "yMMMMEEEEd").Format(date)
 
-	want := "Tuesday, Jan/2/2024"
+	want := "Tuesday, January 2, 2024"
 	if got != want {
 		t.Fatalf("want %q got %q", want, got)
 	}
