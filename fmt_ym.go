@@ -19,7 +19,11 @@ func seqYearMonth(locale language.Tag, opts Options) *symbols.Seq {
 	case cldr.EN:
 		switch region {
 		default:
-			return seq.Add(month, '/', year)
+			if opts.Month.numeric() || opts.Month.twoDigit() {
+				return seq.Add(month, '/', year)
+			}
+
+			return seq.Add(month, ' ', year)
 		case cldr.Region001, cldr.Region150, cldr.RegionAE, cldr.RegionAG, cldr.RegionAI, cldr.RegionAT, cldr.RegionAU,
 			cldr.RegionBB, cldr.RegionBE, cldr.RegionBM, cldr.RegionBS, cldr.RegionBW, cldr.RegionBZ, cldr.RegionCC,
 			cldr.RegionCK, cldr.RegionCM, cldr.RegionCX, cldr.RegionCY, cldr.RegionDE, cldr.RegionDG, cldr.RegionDK,
@@ -39,10 +43,18 @@ func seqYearMonth(locale language.Tag, opts Options) *symbols.Seq {
 			// year=2-digit,month=numeric,out=01/24
 			// year=2-digit,month=2-digit,out=01/24
 			if script != cldr.Shaw {
-				return seq.Add(symbols.Symbol_MM, '/', year)
+				if opts.Month.numeric() || opts.Month.twoDigit() {
+					return seq.Add(symbols.Symbol_MM, '/', year)
+				}
+
+				return seq.Add(month, ' ', year)
 			}
 
-			return seq.Add(month, '/', year)
+			if opts.Month.numeric() || opts.Month.twoDigit() {
+				return seq.Add(month, '/', year)
+			}
+
+			return seq.Add(month, ' ', year)
 		case cldr.RegionCA, cldr.RegionSE:
 			// year=numeric,month=numeric,out=2024-01
 			// year=numeric,month=2-digit,out=2024-01
