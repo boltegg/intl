@@ -7,7 +7,12 @@ import (
 
 // seqYearQuarter formats a year and quarter, e.g. "Q1 2024" or "1st quarter 2024".
 func seqYearQuarter(locale language.Tag, opts Options) *symbols.Seq {
-	return symbols.NewSeq(locale).Add(opts.Quarter.symbol(), symbols.TxtSpace, opts.Year.symbol())
+	seq := symbols.NewSeq(locale).Add(opts.Quarter.symbol(), symbols.TxtSpace, opts.Year.symbol())
+	if base, _ := locale.Base(); base.String() == "uk" && !opts.Quarter.short() {
+		seq.Add(symbols.TxtNNBSP, symbols.Txtр, '.')
+	}
+
+	return seq
 }
 
 func seqYearQuarterPersian(locale language.Tag, opts Options) *symbols.Seq {
