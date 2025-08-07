@@ -72,7 +72,7 @@ func ParseLayout(layout string) (Options, error) {
 			default:
 				opts.Weekday = WeekdayShort
 			}
-		case 'H', 'h':
+		case 'H', 'h', 'j':
 			if count == 2 {
 				opts.Hour = Hour2Digit
 			} else {

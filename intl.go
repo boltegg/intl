@@ -817,6 +817,8 @@ func gregorianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqYearDay(locale, opts)
 	case !opts.Year.und():
 		seq = seqYear(locale, opts.Year)
+	case !opts.Quarter.und():
+		seq = seqQuarter(locale, opts.Quarter)
 	case !opts.Month.und() && !opts.Weekday.und() && !opts.Hour.und() && !opts.Minute.und():
 		seq = seqMonthWeekdayTime(locale, opts)
 	case !opts.Month.und() && !opts.Day.und() && !opts.Weekday.und():
@@ -881,6 +883,8 @@ func persianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqYearDayPersian(locale, opts)
 	case !opts.Year.und():
 		seq = seqYearPersian(locale, opts.Year)
+	case !opts.Quarter.und():
+		seq = seqQuarterPersian(locale, opts.Quarter)
 	case !opts.Month.und() && !opts.Weekday.und() && !opts.Hour.und() && !opts.Minute.und():
 		seq = seqMonthWeekdayTime(locale, opts)
 	case !opts.Month.und() && !opts.Day.und() && !opts.Weekday.und():
@@ -950,6 +954,8 @@ func buddhistDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqYearDayBuddhist(locale, opts)
 	case !opts.Year.und():
 		seq = seqYearBuddhist(locale, opts)
+	case !opts.Quarter.und():
+		seq = seqQuarterBuddhist(locale, opts.Quarter)
 	case !opts.Month.und() && !opts.Weekday.und() && !opts.Hour.und() && !opts.Minute.und():
 		seq = seqMonthWeekdayTime(locale, opts)
 	case !opts.Month.und() && !opts.Day.und() && !opts.Weekday.und():

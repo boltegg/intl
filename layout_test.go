@@ -39,6 +39,15 @@ func TestDateTimeFormat_Layout_Patterns(t *testing.T) {
 		{"yMd", "1/2/2024"},
 		{"yQQQ", "Q1 2024"},
 		{"yQQQQ", "1st quarter 2024"},
+		{"QQQ", "Q1"},
+		{"QQQQ", "1st quarter"},
+		{"d", "2"},
+		{"j", "3"},
+		{"jm", "3:4"},
+		{"jms", "3:4:5"},
+		{"m", "4"},
+		{"ms", "4:5"},
+		{"s", "5"},
 	}
 
 	for _, tt := range tests {
