@@ -19,7 +19,11 @@ func seqMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 	case cldr.EN:
 		switch region {
 		default:
-			return seq.Add(month, '/', day)
+			if opts.Month.numeric() || opts.Month.twoDigit() {
+				return seq.Add(month, '/', day)
+			}
+
+			return seq.Add(month, symbols.TxtSpace, day)
 		case cldr.Region001, cldr.Region150, cldr.RegionAE, cldr.RegionAG, cldr.RegionAI, cldr.RegionAT, cldr.RegionBB,
 			cldr.RegionBM, cldr.RegionBS, cldr.RegionBW, cldr.RegionBZ, cldr.RegionCC, cldr.RegionCK, cldr.RegionCM,
 			cldr.RegionCX, cldr.RegionCY, cldr.RegionDE, cldr.RegionDG, cldr.RegionDK, cldr.RegionDM, cldr.RegionER,
@@ -41,21 +45,25 @@ func seqMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 				return seq.Add(symbols.Symbol_dd, '/', symbols.Symbol_MM)
 			}
 
-			return seq.Add(day, '/', month)
+			return seq.Add(day, symbols.TxtSpace, month)
 		case cldr.RegionAU, cldr.RegionBE, cldr.RegionIE, cldr.RegionNZ, cldr.RegionZW:
-			return seq.Add(day, '/', month)
+			if opts.Month.numeric() || opts.Month.twoDigit() {
+				return seq.Add(day, '/', month)
+			}
+
+			return seq.Add(day, symbols.TxtSpace, month)
 		case cldr.RegionCA:
 			if opts.Month.numeric() && opts.Day.numeric() {
 				return seq.Add(symbols.Symbol_MM, '-', symbols.Symbol_dd)
 			}
 
-			return seq.Add(month, '-', day)
+			return seq.Add(month, symbols.TxtSpace, day)
 		case cldr.RegionCH:
 			if opts.Month.numeric() && opts.Day.numeric() {
 				return seq.Add(symbols.Symbol_dd, '.', symbols.Symbol_MM)
 			}
 
-			return seq.Add(day, '.', month)
+			return seq.Add(day, symbols.TxtSpace, month)
 		case cldr.RegionZA:
 			// month=numeric,day=numeric,out=01/02
 			// month=numeric,day=2-digit,out=01/02
@@ -65,7 +73,11 @@ func seqMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 				return seq.Add(symbols.Symbol_dd, '/', symbols.Symbol_MM)
 			}
 
-			return seq.Add(symbols.Symbol_MM, '/', symbols.Symbol_dd)
+			if opts.Month.numeric() || opts.Month.twoDigit() {
+				return seq.Add(symbols.Symbol_MM, '/', symbols.Symbol_dd)
+			}
+
+			return seq.Add(symbols.Symbol_MM, symbols.TxtSpace, symbols.Symbol_dd)
 		}
 	case cldr.AF, cldr.AS, cldr.IA, cldr.KY, cldr.MI, cldr.RM, cldr.TG, cldr.WO:
 		return seq.Add(symbols.Symbol_dd, '-', symbols.Symbol_MM)
