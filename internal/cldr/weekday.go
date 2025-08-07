@@ -14,6 +14,11 @@ var weekdayData = map[string]map[string]CalendarWeekdays{
 		"wide":        {"неділя", "понеділок", "вівторок", "середа", "четвер", "пʼятниця", "субота"},
 		"narrow":      {"Н", "П", "В", "С", "Ч", "П", "С"},
 	},
+	"ru": {
+		"abbreviated": {"вс", "пн", "вт", "ср", "чт", "пт", "сб"},
+		"wide":        {"воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"},
+		"narrow":      {"В", "П", "В", "С", "Ч", "П", "С"},
+	},
 }
 
 // WeekdayNames returns localized weekday names for the given locale and width.
