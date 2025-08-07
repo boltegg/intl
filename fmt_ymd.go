@@ -413,6 +413,10 @@ func seqYearMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 		return seq.Add(day, '.', month, '.', year)
 	case cldr.RU:
 		if opts.Month.numeric() && opts.Day.numeric() {
+			if region == cldr.RegionUA {
+				return seq.Add(symbols.Symbol_d, '.', symbols.Symbol_MM, '.', year)
+			}
+
 			return seq.Add(symbols.Symbol_dd, '.', symbols.Symbol_MM, '.', year)
 		}
 

@@ -384,6 +384,7 @@ var (
 	RegionTT  = language.MustParseRegion("TT")
 	RegionTV  = language.MustParseRegion("TV")
 	RegionTZ  = language.MustParseRegion("TZ")
+	RegionUA  = language.MustParseRegion("UA")
 	RegionUG  = language.MustParseRegion("UG")
 	RegionUM  = language.MustParseRegion("UM")
 	RegionUS  = language.MustParseRegion("US")
