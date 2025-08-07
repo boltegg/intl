@@ -205,15 +205,20 @@ func (s *Seq) Func() func(cldr.TimeReader) string {
 		case Symbol_dd:
 			symFmt = cldr.DayTwoDigit(digits)
 		case Symbol_H:
-			symFmt = cldr.HourNumeric(digits)
+			base, _ := s.locale.Base()
+			if base.String() == "es" {
+				symFmt = cldr.HourNumeric(digits)
+			} else {
+				symFmt = cldr.HourTwoDigit(digits)
+			}
 		case Symbol_HH:
 			symFmt = cldr.HourTwoDigit(digits)
 		case Symbol_m:
-			symFmt = cldr.MinuteNumeric(digits)
+			symFmt = cldr.MinuteTwoDigit(digits)
 		case Symbol_mm:
 			symFmt = cldr.MinuteTwoDigit(digits)
 		case Symbol_s:
-			symFmt = cldr.SecondNumeric(digits)
+			symFmt = cldr.SecondTwoDigit(digits)
 		case Symbol_ss:
 			symFmt = cldr.SecondTwoDigit(digits)
 		case Symbol_E:

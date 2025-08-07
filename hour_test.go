@@ -15,8 +15,9 @@ func TestDateTimeFormat_Hour(t *testing.T) {
 		options Options
 		want    string
 	}{
-		{"lv", Options{Hour: Hour2Digit}, "03"},
-		{"fa", Options{Hour: HourNumeric}, "۳"},
+		{"lv", Options{Hour: HourNumeric}, "03"},
+		{"es", Options{Hour: HourNumeric}, "3"},
+		{"fa", Options{Hour: HourNumeric}, "۰۳"},
 		{"fa", Options{Hour: Hour2Digit}, "۰۳"},
 	}
 
