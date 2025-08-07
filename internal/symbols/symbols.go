@@ -182,7 +182,13 @@ func (s *Seq) Func() func(cldr.TimeReader) string {
 		case Symbol_yy:
 			symFmt = cldr.YearTwoDigit(digits)
 		case Symbol_M:
-			symFmt = cldr.MonthNumeric(digits)
+			base, _ := s.locale.Base()
+			region, _ := s.locale.Region()
+			if base.String() == "uk" && region.String() == "UA" {
+				symFmt = cldr.MonthTwoDigit(digits)
+			} else {
+				symFmt = cldr.MonthNumeric(digits)
+			}
 		case Symbol_MM:
 			symFmt = cldr.MonthTwoDigit(digits)
 		case Symbol_MMM:
