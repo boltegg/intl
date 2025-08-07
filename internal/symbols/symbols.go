@@ -73,6 +73,8 @@ const (
 	Symbol_E     // E, weekday short
 	Symbol_EEEE  // EEEE, weekday long
 	Symbol_EEEEE // EEEEE, weekday narrow
+	Symbol_QQQ   // QQQ, quarter short
+	Symbol_QQQQ  // QQQQ, quarter long
 )
 
 func (s Symbol) String() string {
@@ -223,6 +225,10 @@ func (s *Seq) Func() func(cldr.TimeReader) string {
 		case Symbol_EEEEE:
 			names := cldr.WeekdayNames(s.locale.String(), "narrow")
 			symFmt = cldr.Weekday(names)
+		case Symbol_QQQ:
+			symFmt = cldr.QuarterShort(digits)
+		case Symbol_QQQQ:
+			symFmt = cldr.QuarterLong(digits)
 		case MonthUnit:
 			symFmt = cldr.Text(cldr.UnitName(s.locale).Month)
 		case DayUnit:

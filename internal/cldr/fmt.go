@@ -120,3 +120,33 @@ type SecondTwoDigit Digits
 func (s SecondTwoDigit) Format(b *strings.Builder, t TimeReader) {
 	Digits(s).appendTwoDigit(b, t.Second())
 }
+
+// QuarterShort formats the quarter in a short form like Q1.
+type QuarterShort Digits
+
+func (q QuarterShort) Format(b *strings.Builder, t TimeReader) {
+	quarter := (int(t.Month())-1)/3 + 1
+	b.WriteByte('Q')
+	Digits(q).appendNumeric(b, quarter)
+}
+
+// QuarterLong formats the quarter in a long form like 1st quarter.
+type QuarterLong Digits
+
+func (q QuarterLong) Format(b *strings.Builder, t TimeReader) {
+	quarter := (int(t.Month())-1)/3 + 1
+	Digits(q).appendNumeric(b, quarter)
+	var suffix string
+	switch quarter {
+	case 1:
+		suffix = "st"
+	case 2:
+		suffix = "nd"
+	case 3:
+		suffix = "rd"
+	default:
+		suffix = "th"
+	}
+	b.WriteString(suffix)
+	b.WriteString(" quarter")
+}
