@@ -15,8 +15,8 @@ func TestDateTimeFormat_Second(t *testing.T) {
 		options Options
 		want    string
 	}{
-		{"lv", Options{Second: SecondNumeric}, "05"},
-		{"fa", Options{Second: SecondNumeric}, "۰۵"},
+		{"lv", Options{Second: SecondNumeric}, "5"},
+		{"fa", Options{Second: SecondNumeric}, "۵"},
 		{"fa", Options{Second: Second2Digit}, "۰۵"},
 	}
 
@@ -43,9 +43,9 @@ func TestDateTimeFormat_MinuteSecond(t *testing.T) {
 		options Options
 		want    string
 	}{
-		{"lv", Options{Minute: MinuteNumeric, Second: SecondNumeric}, "04:05"},
-		{"es", Options{Minute: MinuteNumeric, Second: SecondNumeric}, "04:05"},
-		{"fa", Options{Minute: MinuteNumeric, Second: SecondNumeric}, "۰۴:۰۵"},
+		{"lv", Options{Minute: MinuteNumeric, Second: SecondNumeric}, "4:5"},
+		{"es", Options{Minute: MinuteNumeric, Second: SecondNumeric}, "4:5"},
+		{"fa", Options{Minute: MinuteNumeric, Second: SecondNumeric}, "۴:۵"},
 	}
 
 	date := time.Date(2024, 1, 2, 3, 4, 5, 0, time.UTC)
@@ -71,9 +71,9 @@ func TestDateTimeFormat_HourMinuteSecond(t *testing.T) {
 		options Options
 		want    string
 	}{
-		{"lv", Options{Hour: HourNumeric, Minute: MinuteNumeric, Second: SecondNumeric}, "03:04:05"},
-		{"es", Options{Hour: HourNumeric, Minute: MinuteNumeric, Second: SecondNumeric}, "3:04:05"},
-		{"fa", Options{Hour: HourNumeric, Minute: MinuteNumeric, Second: SecondNumeric}, "۰۳:۰۴:۰۵"},
+		{"lv", Options{Hour: HourNumeric, Minute: MinuteNumeric, Second: SecondNumeric}, "03:4:5"},
+		{"es", Options{Hour: HourNumeric, Minute: MinuteNumeric, Second: SecondNumeric}, "3:4:5"},
+		{"fa", Options{Hour: HourNumeric, Minute: MinuteNumeric, Second: SecondNumeric}, "۰۳:۴:۵"},
 	}
 
 	date := time.Date(2024, 1, 2, 3, 4, 5, 0, time.UTC)

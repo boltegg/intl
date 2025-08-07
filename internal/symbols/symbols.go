@@ -214,11 +214,11 @@ func (s *Seq) Func() func(cldr.TimeReader) string {
 		case Symbol_HH:
 			symFmt = cldr.HourTwoDigit(digits)
 		case Symbol_m:
-			symFmt = cldr.MinuteTwoDigit(digits)
+			symFmt = cldr.MinuteNumeric(digits)
 		case Symbol_mm:
 			symFmt = cldr.MinuteTwoDigit(digits)
 		case Symbol_s:
-			symFmt = cldr.SecondTwoDigit(digits)
+			symFmt = cldr.SecondNumeric(digits)
 		case Symbol_ss:
 			symFmt = cldr.SecondTwoDigit(digits)
 		case Symbol_E:

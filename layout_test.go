@@ -52,9 +52,9 @@ func TestDateTimeFormat_Layout_Patterns(t *testing.T) {
 		{"j", "03"},
 		{"jm", "03:04"},
 		{"jms", "03:04:05"},
-		{"m", "04"},
+		{"m", "4"},
 		{"ms", "04:05"},
-		{"s", "05"},
+		{"s", "5"},
 	}
 
 	for _, tt := range tests {
