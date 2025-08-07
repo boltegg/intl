@@ -18,6 +18,7 @@ func TestDateTimeFormat_UkrainianUkraine(t *testing.T) {
 		date   time.Time
 		want   string
 	}{
+		{"M", "M", time.Date(2024, 3, 1, 0, 0, 0, 0, time.UTC), "03"},
 		{"E", "E", time.Date(2024, 3, 27, 0, 0, 0, 0, time.UTC), "ср"},
 		{"MEd", "MEd", time.Date(2025, 3, 26, 0, 0, 0, 0, time.UTC), "ср, 26.03"},
 		{"yMMMEd", "yMMMEd", time.Date(2025, 11, 28, 0, 0, 0, 0, time.UTC), "пт, 28 лист. 2025 р."},
