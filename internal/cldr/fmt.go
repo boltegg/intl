@@ -3,6 +3,8 @@ package cldr
 import (
 	"strings"
 	"time"
+
+	"golang.org/x/text/language"
 )
 
 type TimeReader interface {
@@ -121,21 +123,51 @@ func (s SecondTwoDigit) Format(b *strings.Builder, t TimeReader) {
 	Digits(s).appendTwoDigit(b, t.Second())
 }
 
-// QuarterShort formats the quarter in a short form like Q1.
-type QuarterShort Digits
-
-func (q QuarterShort) Format(b *strings.Builder, t TimeReader) {
-	quarter := (int(t.Month())-1)/3 + 1
-	b.WriteByte('Q')
-	Digits(q).appendNumeric(b, quarter)
+// quarterShort formats the quarter in a short form.
+type quarterShort struct {
+	digits Digits
+	locale language.Tag
 }
 
-// QuarterLong formats the quarter in a long form like 1st quarter.
-type QuarterLong Digits
+// QuarterShort returns a formatter for a short quarter string like "Q1" or "1-й кв.".
+func QuarterShort(locale language.Tag, digits Digits) FmtFunc {
+	return quarterShort{digits: digits, locale: locale}
+}
 
-func (q QuarterLong) Format(b *strings.Builder, t TimeReader) {
+func (q quarterShort) Format(b *strings.Builder, t TimeReader) {
 	quarter := (int(t.Month())-1)/3 + 1
-	Digits(q).appendNumeric(b, quarter)
+
+	if base, _ := q.locale.Base(); base.String() == "uk" {
+		Digits(q.digits).appendNumeric(b, quarter)
+		b.WriteString("-й кв.")
+		return
+	}
+
+	b.WriteByte('Q')
+	Digits(q.digits).appendNumeric(b, quarter)
+}
+
+// quarterLong formats the quarter in a long form.
+type quarterLong struct {
+	digits Digits
+	locale language.Tag
+}
+
+// QuarterLong returns a formatter for a long quarter string like "1st quarter" or "1-й квартал".
+func QuarterLong(locale language.Tag, digits Digits) FmtFunc {
+	return quarterLong{digits: digits, locale: locale}
+}
+
+func (q quarterLong) Format(b *strings.Builder, t TimeReader) {
+	quarter := (int(t.Month())-1)/3 + 1
+
+	if base, _ := q.locale.Base(); base.String() == "uk" {
+		Digits(q.digits).appendNumeric(b, quarter)
+		b.WriteString("-й квартал")
+		return
+	}
+
+	Digits(q.digits).appendNumeric(b, quarter)
 	var suffix string
 	switch quarter {
 	case 1:

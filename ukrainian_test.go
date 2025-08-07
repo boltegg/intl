@@ -23,6 +23,10 @@ func TestDateTimeFormat_Ukrainian(t *testing.T) {
 		{"WeekdayLongMonthDay", Options{Weekday: WeekdayLong, Month: MonthLong, Day: DayNumeric}, "вівторок, 2 січня"},
 		{"YearMonthDay", Options{Year: YearNumeric, Month: MonthLong, Day: DayNumeric}, "2 січня 2024 р."},
 		{"YearMonth", Options{Year: YearNumeric, Month: MonthLong}, "січень 2024 р."},
+		{"QuarterShort", Options{Quarter: QuarterShort}, "1-й кв."},
+		{"YearQuarterShort", Options{Year: YearNumeric, Quarter: QuarterShort}, "1-й кв. 2024"},
+		{"QuarterLong", Options{Quarter: QuarterLong}, "1-й квартал"},
+		{"YearQuarterLong", Options{Year: YearNumeric, Quarter: QuarterLong}, "1-й квартал 2024 р."},
 	}
 
 	for _, tt := range tests {

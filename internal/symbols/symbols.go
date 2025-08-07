@@ -226,9 +226,9 @@ func (s *Seq) Func() func(cldr.TimeReader) string {
 			names := cldr.WeekdayNames(s.locale.String(), "narrow")
 			symFmt = cldr.Weekday(names)
 		case Symbol_QQQ:
-			symFmt = cldr.QuarterShort(digits)
+			symFmt = cldr.QuarterShort(s.locale, digits)
 		case Symbol_QQQQ:
-			symFmt = cldr.QuarterLong(digits)
+			symFmt = cldr.QuarterLong(s.locale, digits)
 		case MonthUnit:
 			symFmt = cldr.Text(cldr.UnitName(s.locale).Month)
 		case DayUnit:
