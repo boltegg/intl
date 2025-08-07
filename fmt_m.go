@@ -13,7 +13,7 @@ func seqMonth(locale language.Tag, opt Month) *symbols.Seq {
 	switch lang {
 	case cldr.BR, cldr.FO, cldr.GA, cldr.LT, cldr.UZ:
 		seq.Add(symbols.Symbol_MM)
-	case cldr.UK:
+	case cldr.UK, cldr.RU:
 		seq.Add(opt.symbolStandAlone())
 	case cldr.MN:
 		seq.Add(symbols.Symbol_LLLLL)

@@ -137,7 +137,7 @@ func QuarterShort(locale language.Tag, digits Digits) FmtFunc {
 func (q quarterShort) Format(b *strings.Builder, t TimeReader) {
 	quarter := (int(t.Month())-1)/3 + 1
 
-	if base, _ := q.locale.Base(); base.String() == "uk" {
+	if base, _ := q.locale.Base(); base.String() == "uk" || base.String() == "ru" {
 		Digits(q.digits).appendNumeric(b, quarter)
 		b.WriteString("-й кв.")
 		return
@@ -161,7 +161,7 @@ func QuarterLong(locale language.Tag, digits Digits) FmtFunc {
 func (q quarterLong) Format(b *strings.Builder, t TimeReader) {
 	quarter := (int(t.Month())-1)/3 + 1
 
-	if base, _ := q.locale.Base(); base.String() == "uk" {
+	if base, _ := q.locale.Base(); base.String() == "uk" || base.String() == "ru" {
 		Digits(q.digits).appendNumeric(b, quarter)
 		b.WriteString("-й квартал")
 		return

@@ -147,12 +147,18 @@ func seqMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 		return seq.Add(symbols.Symbol_d, '.', symbols.Symbol_M, '.')
 	case cldr.SQ:
 		return seq.Add(symbols.Symbol_d, '.', symbols.Symbol_M)
-	case cldr.RO, cldr.RU:
+	case cldr.RO:
 		if opts.Month.numeric() && opts.Day.numeric() {
 			return seq.Add(symbols.Symbol_dd, '.', symbols.Symbol_MM)
 		}
 
 		return seq.Add(day, '.', month)
+	case cldr.RU:
+		if opts.Month.numeric() && opts.Day.numeric() {
+			return seq.Add(symbols.Symbol_dd, '.', symbols.Symbol_MM)
+		}
+
+		return seq.Add(day, symbols.TxtSpace, month)
 	case cldr.SR:
 		if opts.Month.numeric() && opts.Day.numeric() {
 			return seq.Add(day, '.', ' ', month, '.')

@@ -10,6 +10,8 @@ func seqYearQuarter(locale language.Tag, opts Options) *symbols.Seq {
 	seq := symbols.NewSeq(locale).Add(opts.Quarter.symbol(), symbols.TxtSpace, opts.Year.symbol())
 	if base, _ := locale.Base(); base.String() == "uk" && !opts.Quarter.short() {
 		seq.Add(symbols.TxtNNBSP, symbols.Txtр, '.')
+	} else if base.String() == "ru" && !opts.Quarter.short() {
+		seq.Add(symbols.TxtNNBSP, symbols.Txt00)
 	}
 
 	return seq
