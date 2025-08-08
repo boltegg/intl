@@ -32,3 +32,16 @@ func TestDateTimeFormat_EnglishColombiaMEd(t *testing.T) {
 		t.Fatalf("want %q got %q", want, got)
 	}
 }
+
+func TestDateTimeFormat_EnglishColombiaMMMMd(t *testing.T) {
+	t.Parallel()
+
+	date := time.Date(2025, 11, 1, 0, 0, 0, 0, time.UTC)
+	locale := language.MustParse("en-CO")
+
+	got := NewDateTimeFormatLayout(locale, "MMMMd").Format(date)
+	want := "November 1"
+	if got != want {
+		t.Fatalf("want %q got %q", want, got)
+	}
+}
