@@ -64,6 +64,11 @@ func MonthNames(locale string, context, width string) CalendarMonths {
 						names[j] = name + "."
 					}
 				}
+				if context == "format" {
+					if region, _ := tag.Region(); region.String() == "CO" {
+						names[8] = "sep."
+					}
+				}
 			}
 			return names
 		}
