@@ -125,6 +125,10 @@ func ParseLayout(layout string) (Options, error) {
 		i = j
 	}
 
+	if !opts.Month.und() && opts.Day.und() && opts.Year.und() && opts.Weekday.und() && opts.Hour.und() && opts.Minute.und() && opts.Second.und() && opts.Era.und() && opts.Quarter.und() {
+		opts.MonthStandalone = true
+	}
+
 	return opts, nil
 }
 

@@ -29,3 +29,29 @@ func TestDateTimeFormat_SpanishColombia_jm(t *testing.T) {
 		t.Fatalf("want %q got %q", want, got)
 	}
 }
+
+func TestDateTimeFormat_SpanishColombia_MMM(t *testing.T) {
+	t.Parallel()
+
+	date := time.Date(2025, 9, 1, 0, 0, 0, 0, time.UTC)
+	locale := language.MustParse("es-CO")
+
+	got := NewDateTimeFormatLayout(locale, "MMM").Format(date)
+	want := "sept."
+	if got != want {
+		t.Fatalf("want %q got %q", want, got)
+	}
+}
+
+func TestDateTimeFormat_SpanishColombia_yMMM(t *testing.T) {
+	t.Parallel()
+
+	date := time.Date(2025, 4, 1, 0, 0, 0, 0, time.UTC)
+	locale := language.MustParse("es-CO")
+
+	got := NewDateTimeFormatLayout(locale, "yMMM").Format(date)
+	want := "abr. de 2025"
+	if got != want {
+		t.Fatalf("want %q got %q", want, got)
+	}
+}
