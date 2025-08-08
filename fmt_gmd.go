@@ -232,8 +232,8 @@ func seqEraMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 		switch region {
 		case cldr.RegionUS, cldr.RegionAS, cldr.RegionBI, cldr.RegionPH, cldr.RegionPR, cldr.RegionUM, cldr.RegionVI:
 			return seq.Add(opts.Month.symbolFormat(), '/', opts.Day.symbol(), ' ', era)
-		case cldr.RegionAU, cldr.RegionBE, cldr.RegionIE, cldr.RegionNZ, cldr.RegionZW:
-			return seq.Add(opts.Day.symbol(), '/', opts.Month.symbolFormat(), ' ', era)
+               case cldr.RegionAU, cldr.RegionBE, cldr.RegionIE, cldr.RegionNZ, cldr.RegionUA, cldr.RegionZW:
+                       return seq.Add(opts.Day.symbol(), '/', opts.Month.symbolFormat(), ' ', era)
 		case cldr.RegionGU, cldr.RegionMH, cldr.RegionMP, cldr.RegionZZ:
 			return seq.Add(opts.Month.symbolFormat(), '/', opts.Day.symbol(), ' ', era)
 		case cldr.RegionCA:
