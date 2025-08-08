@@ -14,7 +14,7 @@ func TestDateTimeFormat_EnglishColombiaYMd(t *testing.T) {
 	locale := language.MustParse("en-CO")
 
 	got := NewDateTimeFormatLayout(locale, "yMd").Format(date)
-	want := "17/11/2025"
+	want := "11/17/2025"
 	if got != want {
 		t.Fatalf("want %q got %q", want, got)
 	}
@@ -27,7 +27,7 @@ func TestDateTimeFormat_EnglishColombiaYMdSeptember(t *testing.T) {
 	locale := language.MustParse("en-CO")
 
 	got := NewDateTimeFormatLayout(locale, "yMd").Format(date)
-	want := "5/09/2025"
+	want := "9/5/2025"
 	if got != want {
 		t.Fatalf("want %q got %q", want, got)
 	}
@@ -40,7 +40,7 @@ func TestDateTimeFormat_EnglishColombiaMEd(t *testing.T) {
 	locale := language.MustParse("en-CO")
 
 	got := NewDateTimeFormatLayout(locale, "MEd").Format(date)
-	want := "Tue, 4/02"
+	want := "Tue, 2/4"
 	if got != want {
 		t.Fatalf("want %q got %q", want, got)
 	}
@@ -53,7 +53,7 @@ func TestDateTimeFormat_EnglishColombiaMMMMd(t *testing.T) {
 	locale := language.MustParse("en-CO")
 
 	got := NewDateTimeFormatLayout(locale, "MMMMd").Format(date)
-	want := "1 November"
+	want := "November 1"
 	if got != want {
 		t.Fatalf("want %q got %q", want, got)
 	}
@@ -66,7 +66,7 @@ func TestDateTimeFormat_EnglishColombiaMMMMEEEEd(t *testing.T) {
 	locale := language.MustParse("en-CO")
 
 	got := NewDateTimeFormatLayout(locale, "MMMMEEEEd").Format(date)
-	want := "Thursday, 3 April"
+	want := "Thursday, April 3"
 	if got != want {
 		t.Fatalf("want %q got %q", want, got)
 	}

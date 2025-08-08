@@ -220,7 +220,7 @@ func seqYearMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 			}
 
 			return seq.Add(day, '/', month, '/', year)
-		case cldr.RegionBE, cldr.RegionCO, cldr.RegionHK, cldr.RegionIE, cldr.RegionIN, cldr.RegionZW:
+		case cldr.RegionBE, cldr.RegionHK, cldr.RegionIE, cldr.RegionIN, cldr.RegionZW:
 			// year=numeric,month=numeric,day=numeric,out=2/1/2024
 			// year=numeric,month=numeric,day=2-digit,out=02/1/2024
 			// year=numeric,month=2-digit,day=numeric,out=2/01/2024
