@@ -18,6 +18,12 @@ func seqYearMonth(locale language.Tag, opts Options) *symbols.Seq {
 		return seq.Add(symbols.Symbol_MM, '-', year)
 	case cldr.EN:
 		switch region {
+		case cldr.RegionUA:
+			if opts.Month.numeric() || opts.Month.twoDigit() {
+				return seq.Add(symbols.Symbol_MM, '/', year)
+			}
+
+			return seq.Add(month, ' ', year)
 		default:
 			if opts.Month.numeric() || opts.Month.twoDigit() {
 				return seq.Add(month, '/', year)

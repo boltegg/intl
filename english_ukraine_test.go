@@ -58,3 +58,29 @@ func TestDateTimeFormat_EnglishUkraineMMMMEEEEd(t *testing.T) {
 		t.Fatalf("want %q got %q", want, got)
 	}
 }
+
+func TestDateTimeFormat_EnglishUkraineMEd(t *testing.T) {
+	t.Parallel()
+
+	date := time.Date(2025, 1, 1, 0, 0, 0, 0, time.UTC)
+	locale := language.MustParse("en-UA")
+
+	got := NewDateTimeFormatLayout(locale, "MEd").Format(date)
+	want := "Wed 1/1"
+	if got != want {
+		t.Fatalf("want %q got %q", want, got)
+	}
+}
+
+func TestDateTimeFormat_EnglishUkraineYM(t *testing.T) {
+	t.Parallel()
+
+	date := time.Date(2025, 1, 1, 0, 0, 0, 0, time.UTC)
+	locale := language.MustParse("en-UA")
+
+	got := NewDateTimeFormatLayout(locale, "yM").Format(date)
+	want := "01/2025"
+	if got != want {
+		t.Fatalf("want %q got %q", want, got)
+	}
+}
