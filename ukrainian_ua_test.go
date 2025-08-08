@@ -29,7 +29,11 @@ func TestDateTimeFormat_UkrainianUkraine(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got := NewDateTimeFormatLayout(locale, tt.layout).Format(tt.date)
+			fmt, err := NewDateTimeFormatLayout(locale, tt.layout)
+			if err != nil {
+				t.Fatal(err)
+			}
+			got := fmt.Format(tt.date)
 			if got != tt.want {
 				t.Fatalf("want %q got %q", tt.want, got)
 			}

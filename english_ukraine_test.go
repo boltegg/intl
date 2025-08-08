@@ -13,7 +13,11 @@ func TestDateTimeFormat_EnglishUkraineYMd(t *testing.T) {
 	date := time.Date(2025, 12, 31, 0, 0, 0, 0, time.UTC)
 	locale := language.MustParse("en-UA")
 
-	got := NewDateTimeFormatLayout(locale, "yMd").Format(date)
+	fmt, err := NewDateTimeFormatLayout(locale, "yMd")
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := fmt.Format(date)
 	want := "31/12/2025"
 	if got != want {
 		t.Fatalf("want %q got %q", want, got)
@@ -26,7 +30,11 @@ func TestDateTimeFormat_EnglishUkraineYMed(t *testing.T) {
 	date := time.Date(2025, 4, 1, 0, 0, 0, 0, time.UTC)
 	locale := language.MustParse("en-UA")
 
-	got := NewDateTimeFormatLayout(locale, "yMEd").Format(date)
+	fmt, err := NewDateTimeFormatLayout(locale, "yMEd")
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := fmt.Format(date)
 	want := "Tue 1/4/2025"
 	if got != want {
 		t.Fatalf("want %q got %q", want, got)
@@ -39,7 +47,11 @@ func TestDateTimeFormat_EnglishUkraineYMd_NoPadding(t *testing.T) {
 	date := time.Date(2025, time.October, 6, 0, 0, 0, 0, time.UTC)
 	locale := language.MustParse("en-UA")
 
-	got := NewDateTimeFormatLayout(locale, "yMd").Format(date)
+	fmt, err := NewDateTimeFormatLayout(locale, "yMd")
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := fmt.Format(date)
 	want := "6/10/2025"
 	if got != want {
 		t.Fatalf("want %q got %q", want, got)
@@ -52,7 +64,11 @@ func TestDateTimeFormat_EnglishUkraineMMMMEEEEd(t *testing.T) {
 	date := time.Date(2014, time.November, 30, 0, 0, 0, 0, time.UTC)
 	locale := language.MustParse("en-UA")
 
-	got := NewDateTimeFormatLayout(locale, "MMMMEEEEd").Format(date)
+	fmt, err := NewDateTimeFormatLayout(locale, "MMMMEEEEd")
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := fmt.Format(date)
 	want := "Sunday, 30 November"
 	if got != want {
 		t.Fatalf("want %q got %q", want, got)
@@ -65,7 +81,11 @@ func TestDateTimeFormat_EnglishUkraineMEd(t *testing.T) {
 	date := time.Date(2025, 1, 1, 0, 0, 0, 0, time.UTC)
 	locale := language.MustParse("en-UA")
 
-	got := NewDateTimeFormatLayout(locale, "MEd").Format(date)
+	fmt, err := NewDateTimeFormatLayout(locale, "MEd")
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := fmt.Format(date)
 	want := "Wed 1/1"
 	if got != want {
 		t.Fatalf("want %q got %q", want, got)
@@ -78,7 +98,11 @@ func TestDateTimeFormat_EnglishUkraineYM(t *testing.T) {
 	date := time.Date(2025, 1, 1, 0, 0, 0, 0, time.UTC)
 	locale := language.MustParse("en-UA")
 
-	got := NewDateTimeFormatLayout(locale, "yM").Format(date)
+	fmt, err := NewDateTimeFormatLayout(locale, "yM")
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := fmt.Format(date)
 	want := "01/2025"
 	if got != want {
 		t.Fatalf("want %q got %q", want, got)
