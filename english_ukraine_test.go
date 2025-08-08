@@ -45,3 +45,16 @@ func TestDateTimeFormat_EnglishUkraineYMd_NoPadding(t *testing.T) {
 		t.Fatalf("want %q got %q", want, got)
 	}
 }
+
+func TestDateTimeFormat_EnglishUkraineMMMMEEEEd(t *testing.T) {
+	t.Parallel()
+
+	date := time.Date(2014, time.November, 30, 0, 0, 0, 0, time.UTC)
+	locale := language.MustParse("en-UA")
+
+	got := NewDateTimeFormatLayout(locale, "MMMMEEEEd").Format(date)
+	want := "Sunday, 30 November"
+	if got != want {
+		t.Fatalf("want %q got %q", want, got)
+	}
+}
