@@ -6,13 +6,25 @@ import (
 )
 
 func seqHourMinuteSecond(locale language.Tag, opts Options) *symbols.Seq {
-	return symbols.NewSeq(locale).Add(opts.Hour.symbol(), symbols.TxtColon, opts.Minute.symbol(), symbols.TxtColon, opts.Second.symbol())
+	seq := symbols.NewSeq(locale).Add(opts.hourSymbol(locale), symbols.TxtColon, opts.Minute.symbol(), symbols.TxtColon, opts.Second.symbol())
+	if opts.use12Hour(locale) {
+		seq.Add(symbols.TxtSpace, symbols.Symbol_a)
+	}
+	return seq
 }
 
 func seqHourMinuteSecondPersian(locale language.Tag, opts Options) *symbols.Seq {
-	return symbols.NewSeq(locale).Add(opts.Hour.symbol(), symbols.TxtColon, opts.Minute.symbol(), symbols.TxtColon, opts.Second.symbol())
+	seq := symbols.NewSeq(locale).Add(opts.hourSymbol(locale), symbols.TxtColon, opts.Minute.symbol(), symbols.TxtColon, opts.Second.symbol())
+	if opts.use12Hour(locale) {
+		seq.Add(symbols.TxtSpace, symbols.Symbol_a)
+	}
+	return seq
 }
 
 func seqHourMinuteSecondBuddhist(locale language.Tag, opts Options) *symbols.Seq {
-	return symbols.NewSeq(locale).Add(opts.Hour.symbol(), symbols.TxtColon, opts.Minute.symbol(), symbols.TxtColon, opts.Second.symbol())
+	seq := symbols.NewSeq(locale).Add(opts.hourSymbol(locale), symbols.TxtColon, opts.Minute.symbol(), symbols.TxtColon, opts.Second.symbol())
+	if opts.use12Hour(locale) {
+		seq.Add(symbols.TxtSpace, symbols.Symbol_a)
+	}
+	return seq
 }

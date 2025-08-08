@@ -99,6 +99,26 @@ func (h HourTwoDigit) Format(b *strings.Builder, t TimeReader) {
 	Digits(h).appendTwoDigit(b, t.Hour())
 }
 
+type Hour12Numeric Digits
+
+func (h Hour12Numeric) Format(b *strings.Builder, t TimeReader) {
+	hour := t.Hour() % 12
+	if hour == 0 {
+		hour = 12
+	}
+	Digits(h).appendNumeric(b, hour)
+}
+
+type Hour12TwoDigit Digits
+
+func (h Hour12TwoDigit) Format(b *strings.Builder, t TimeReader) {
+	hour := t.Hour() % 12
+	if hour == 0 {
+		hour = 12
+	}
+	Digits(h).appendTwoDigit(b, hour)
+}
+
 type MinuteNumeric Digits
 
 func (m MinuteNumeric) Format(b *strings.Builder, t TimeReader) {
@@ -121,6 +141,23 @@ type SecondTwoDigit Digits
 
 func (s SecondTwoDigit) Format(b *strings.Builder, t TimeReader) {
 	Digits(s).appendTwoDigit(b, t.Second())
+}
+
+type dayPeriod struct {
+	names [2]string
+}
+
+// DayPeriod returns a formatter for day period such as "AM" or "PM".
+func DayPeriod(names [2]string) FmtFunc {
+	return dayPeriod{names: names}
+}
+
+func (d dayPeriod) Format(b *strings.Builder, t TimeReader) {
+	if t.Hour() < 12 {
+		b.WriteString(d.names[0])
+	} else {
+		b.WriteString(d.names[1])
+	}
 }
 
 // quarterShort formats the quarter in a short form.
