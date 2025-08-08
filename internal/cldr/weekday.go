@@ -15,6 +15,11 @@ var weekdayData = map[string]map[string]CalendarWeekdays{
 		"wide":        {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"},
 		"narrow":      {"S", "M", "T", "W", "T", "F", "S"},
 	},
+	"es": {
+		"abbreviated": {"dom", "lun", "mar", "mié", "jue", "vie", "sáb"},
+		"wide":        {"domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"},
+		"narrow":      {"D", "L", "M", "X", "J", "V", "S"},
+	},
 	"uk": {
 		"abbreviated": {"нд", "пн", "вт", "ср", "чт", "пт", "сб"},
 		"wide":        {"неділя", "понеділок", "вівторок", "середа", "четвер", "пʼятниця", "субота"},
