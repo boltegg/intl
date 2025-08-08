@@ -3,14 +3,20 @@ package cldr
 import "golang.org/x/text/language"
 
 func MonthNames(locale string, context, width string) CalendarMonths {
-	indexes := MonthLookup[locale]
+	tag := language.Make(locale)
+
+	indexes, ok := MonthLookup[locale]
+	if !ok {
+		base, _ := tag.Base()
+		indexes = MonthLookup[base.String()]
+	}
 
 	// Russian locales mix abbreviated and wide month names when formatting
 	// dates with the abbreviated width. The base data uses the abbreviated
 	// set, but certain months (March, May, June, July) should use the wide
 	// genitive forms. Adjust the result accordingly.
 	if width == "abbreviated" && context == "format" {
-		if base, _ := language.Make(locale).Base(); base.String() == "ru" {
+		if base, _ := tag.Base(); base.String() == "ru" {
 			var out CalendarMonths
 			if v := int(indexes[0]); v > 0 && v < len(CalendarMonthNames) {
 				out = CalendarMonthNames[v]
