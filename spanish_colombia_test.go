@@ -24,7 +24,7 @@ func TestDateTimeFormat_SpanishColombia_jm(t *testing.T) {
 	locale := language.MustParse("es-CO")
 
 	got := NewDateTimeFormatLayout(locale, "jm").Format(date)
-	want := "4:00 a.\u00a0m."
+	want := "4:00 a.m."
 	if got != want {
 		t.Fatalf("want %q got %q", want, got)
 	}
