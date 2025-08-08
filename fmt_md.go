@@ -219,6 +219,10 @@ func seqMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 	case cldr.ES:
 		switch region {
 		default:
+			if !opts.Month.numeric() && !opts.Month.twoDigit() {
+				return seq.Add(day, symbols.TxtSpace, symbols.Txt07, symbols.TxtSpace, month)
+			}
+
 			return seq.Add(symbols.Symbol_d, '/', symbols.Symbol_M)
 		case cldr.RegionCL:
 			// month=numeric,day=numeric,out=02-01
@@ -232,12 +236,20 @@ func seqMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 				return seq.Add(symbols.Symbol_dd, '-', symbols.Symbol_MM)
 			}
 
+			if !opts.Month.numeric() && !opts.Month.twoDigit() {
+				return seq.Add(day, symbols.TxtSpace, symbols.Txt07, symbols.TxtSpace, month)
+			}
+
 			return seq.Add(symbols.Symbol_d, '/', symbols.Symbol_M)
 		case cldr.RegionMX, cldr.RegionUS:
 			// month=numeric,day=numeric,out=2/1
 			// month=numeric,day=2-digit,out=02/1
 			// month=2-digit,day=numeric,out=2/01
 			// month=2-digit,day=2-digit,out=02/01
+			if !opts.Month.numeric() && !opts.Month.twoDigit() {
+				return seq.Add(day, symbols.TxtSpace, symbols.Txt07, symbols.TxtSpace, month)
+			}
+
 			return seq.Add(day, '/', month)
 		case cldr.RegionPA, cldr.RegionPR:
 			// month=numeric,day=numeric,out=01/02
@@ -246,6 +258,10 @@ func seqMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 			// month=2-digit,day=2-digit,out=2/1
 			if opts.Month.numeric() {
 				return seq.Add(symbols.Symbol_MM, '/', symbols.Symbol_dd)
+			}
+
+			if !opts.Month.numeric() && !opts.Month.twoDigit() {
+				return seq.Add(day, symbols.TxtSpace, symbols.Txt07, symbols.TxtSpace, month)
 			}
 
 			return seq.Add(symbols.Symbol_d, '/', symbols.Symbol_M)
