@@ -9,6 +9,8 @@ func DayPeriods(locale language.Tag) [2]string {
 	switch base.String() {
 	case "en":
 		return [2]string{"AM", "PM"}
+	case "es":
+		return [2]string{"a.\u00a0m.", "p.\u00a0m."}
 	default:
 		return [2]string{"AM", "PM"}
 	}
