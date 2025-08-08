@@ -10,6 +10,12 @@ import (
 func seqWeekdayYearMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 	lang, _, region := locale.Raw()
 
+	if lang == cldr.EN && region == cldr.RegionUA {
+		return symbols.NewSeq(locale).
+			Add(opts.Weekday.symbol(), symbols.TxtSpace).
+			AddSeq(seqYearMonthDay(locale, opts))
+	}
+
 	if lang == cldr.RU && region == cldr.RegionUA && opts.Month.numeric() && opts.Day.numeric() {
 		return symbols.NewSeq(locale).
 			Add(opts.Weekday.symbol(), symbols.TxtComma, symbols.TxtSpace,
