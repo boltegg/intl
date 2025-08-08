@@ -1,6 +1,10 @@
 package cldr
 
-import "golang.org/x/text/language"
+import (
+	"strings"
+
+	"golang.org/x/text/language"
+)
 
 // CalendarWeekdays stores localized weekday names.
 type CalendarWeekdays [7]string
@@ -27,6 +31,19 @@ var weekdayData = map[string]map[string]CalendarWeekdays{
 // If the exact locale is unknown, it falls back to the base language before
 // defaulting to English.
 func WeekdayNames(locale, width string) CalendarWeekdays {
+	// allow pattern widths like "E", "EEEE", "EEEEE" in addition to the
+	// CLDR keywords "abbreviated", "wide", and "narrow"
+	if strings.Trim(width, "E") == "" { // width consists solely of 'E'
+		switch n := len(width); {
+		case n <= 3:
+			width = "abbreviated"
+		case n == 4:
+			width = "wide"
+		default:
+			width = "narrow"
+		}
+	}
+
 	if m, ok := weekdayData[locale]; ok {
 		if w, ok := m[width]; ok {
 			return w
