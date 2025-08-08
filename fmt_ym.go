@@ -26,7 +26,7 @@ func seqYearMonth(locale language.Tag, opts Options) *symbols.Seq {
 			return seq.Add(month, ' ', year)
 		case cldr.Region001, cldr.Region150, cldr.RegionAE, cldr.RegionAG, cldr.RegionAI, cldr.RegionAT, cldr.RegionAU,
 			cldr.RegionBB, cldr.RegionBE, cldr.RegionBM, cldr.RegionBS, cldr.RegionBW, cldr.RegionBZ, cldr.RegionCC,
-			cldr.RegionCK, cldr.RegionCM, cldr.RegionCX, cldr.RegionCY, cldr.RegionDE, cldr.RegionDG, cldr.RegionDK,
+			cldr.RegionCK, cldr.RegionCM, cldr.RegionCO, cldr.RegionCX, cldr.RegionCY, cldr.RegionDE, cldr.RegionDG, cldr.RegionDK,
 			cldr.RegionDM, cldr.RegionER, cldr.RegionFI, cldr.RegionFJ, cldr.RegionFK, cldr.RegionFM, cldr.RegionGB,
 			cldr.RegionGD, cldr.RegionGG, cldr.RegionGH, cldr.RegionGI, cldr.RegionGM, cldr.RegionGY, cldr.RegionHK,
 			cldr.RegionID, cldr.RegionIE, cldr.RegionIL, cldr.RegionIM, cldr.RegionIN, cldr.RegionIO, cldr.RegionJE,
