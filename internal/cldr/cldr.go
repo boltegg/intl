@@ -6,9 +6,17 @@ func MonthNames(locale string, context, width string) CalendarMonths {
 	tag := language.Make(locale)
 
 	indexes, ok := MonthLookup[locale]
+	base, _ := tag.Base()
 	if !ok {
-		base, _ := tag.Base()
 		indexes = MonthLookup[base.String()]
+	} else {
+		// Fill missing indexes with base locale values.
+		baseIndexes := MonthLookup[base.String()]
+		for i := range indexes {
+			if indexes[i] == 0 {
+				indexes[i] = baseIndexes[i]
+			}
+		}
 	}
 
 	// Russian locales mix abbreviated and wide month names when formatting
@@ -49,7 +57,15 @@ func MonthNames(locale string, context, width string) CalendarMonths {
 
 	if i >= 0 && i < len(indexes) { // isInBounds()
 		if v := int(indexes[i]); v > 0 && v < len(CalendarMonthNames) { // isInBounds()
-			return CalendarMonthNames[v]
+			names := CalendarMonthNames[v]
+			if base.String() == "es" && width == "abbreviated" {
+				for j, name := range names {
+					if name != "" && name[len(name)-1] != '.' {
+						names[j] = name + "."
+					}
+				}
+			}
+			return names
 		}
 	}
 

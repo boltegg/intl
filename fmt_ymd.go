@@ -18,7 +18,13 @@ func seqYearMonthDay(locale language.Tag, opts Options) *symbols.Seq {
 	case cldr.ES:
 		switch region {
 		default:
-			return seq.Add(day, '/', month, '/', year)
+			if opts.Month.numeric() {
+				return seq.Add(day, '/', month, '/', year)
+			}
+			if opts.Month == MonthShort && !opts.Weekday.und() {
+				return seq.Add(day, symbols.TxtSpace, month, symbols.TxtSpace, year)
+			}
+			return seq.Add(day, symbols.TxtSpace, symbols.Txt07, symbols.TxtSpace, month, symbols.TxtSpace, symbols.Txt07, symbols.TxtSpace, year)
 		case cldr.RegionCL:
 			// year=numeric,month=numeric,day=numeric,out=02-01-2024
 			// year=numeric,month=numeric,day=2-digit,out=02-1-2024
