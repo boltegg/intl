@@ -65,7 +65,7 @@ func TestFromTestData(t *testing.T) {
 					if err != nil {
 						t.Fatalf("parse value %q: %v", sc.Value, err)
 					}
-					date := time.Unix(0, ms*int64(time.Millisecond))
+					date := time.Unix(0, ms*int64(time.Millisecond)).In(time.UTC)
 
 					opts, err := ParseLayout(sc.Pattern)
 					if err != nil {
