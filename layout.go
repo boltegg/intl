@@ -132,18 +132,13 @@ func ParseLayout(layout string) (Options, error) {
 	return opts, nil
 }
 
-// MustParseLayout is like [ParseLayout] but panics on error.
-func MustParseLayout(layout string) Options {
+// NewDateTimeFormatLayout creates [DateTimeFormat] using a CLDR skeleton
+// layout string. It returns an error if the layout contains unsupported symbols.
+func NewDateTimeFormatLayout(locale language.Tag, layout string) (DateTimeFormat, error) {
 	opts, err := ParseLayout(layout)
 	if err != nil {
-		panic(err)
+		return DateTimeFormat{}, err
 	}
 
-	return opts
-}
-
-// NewDateTimeFormatLayout creates [DateTimeFormat] using a CLDR skeleton
-// layout string. It panics if the layout contains unsupported symbols.
-func NewDateTimeFormatLayout(locale language.Tag, layout string) DateTimeFormat {
-	return NewDateTimeFormat(locale, MustParseLayout(layout))
+	return NewDateTimeFormat(locale, opts), nil
 }
