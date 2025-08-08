@@ -75,6 +75,9 @@ const (
 	Symbol_EEEEE // EEEEE, weekday narrow
 	Symbol_QQQ   // QQQ, quarter short
 	Symbol_QQQQ  // QQQQ, quarter long
+	Symbol_h     // h, hour 12-cycle
+	Symbol_hh    // hh, two-digit hour 12-cycle
+	Symbol_a     // a, day period
 )
 
 func (s Symbol) String() string {
@@ -219,6 +222,12 @@ func (s *Seq) Func() func(cldr.TimeReader) string {
 			}
 		case Symbol_HH:
 			symFmt = cldr.HourTwoDigit(digits)
+		case Symbol_h:
+			symFmt = cldr.Hour12Numeric(digits)
+		case Symbol_hh:
+			symFmt = cldr.Hour12TwoDigit(digits)
+		case Symbol_a:
+			symFmt = cldr.DayPeriod(cldr.DayPeriods(s.locale))
 		case Symbol_m:
 			symFmt = cldr.MinuteNumeric(digits)
 		case Symbol_mm:

@@ -81,12 +81,31 @@ func ParseLayout(layout string) (Options, error) {
 			default:
 				opts.Weekday = WeekdayShort
 			}
-		case 'H', 'h', 'j':
+		case 'H':
 			if count == 2 {
 				opts.Hour = Hour2Digit
 			} else {
 				opts.Hour = HourNumeric
 			}
+			opts.hour12 = false
+			opts.hourSet = true
+			opts.hourFromDefault = false
+		case 'h':
+			if count == 2 {
+				opts.Hour = Hour2Digit
+			} else {
+				opts.Hour = HourNumeric
+			}
+			opts.hour12 = true
+			opts.hourSet = true
+			opts.hourFromDefault = false
+		case 'j':
+			if count == 2 {
+				opts.Hour = Hour2Digit
+			} else {
+				opts.Hour = HourNumeric
+			}
+			opts.hourFromDefault = true
 		case 'm':
 			if count == 2 || !onlyMinute {
 				opts.Minute = Minute2Digit

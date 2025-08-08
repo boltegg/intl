@@ -749,6 +749,10 @@ type Options struct {
 	Hour            Hour
 	Minute          Minute
 	Second          Second
+
+	hour12          bool
+	hourSet         bool
+	hourFromDefault bool
 }
 
 // DateTimeFormat encapsulates the configuration and functionality for
@@ -843,7 +847,7 @@ func gregorianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 	case !opts.Hour.und() && !opts.Minute.und():
 		seq = seqHourMinute(locale, opts)
 	case !opts.Hour.und():
-		seq = seqHour(locale, opts.Hour)
+		seq = seqHour(locale, opts)
 	case !opts.Minute.und():
 		seq = seqMinute(locale, opts.Minute)
 	case !opts.Second.und():
@@ -913,7 +917,7 @@ func persianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 	case !opts.Hour.und() && !opts.Minute.und():
 		seq = seqHourMinutePersian(locale, opts)
 	case !opts.Hour.und():
-		seq = seqHourPersian(locale, opts.Hour)
+		seq = seqHourPersian(locale, opts)
 	case !opts.Minute.und():
 		seq = seqMinutePersian(locale, opts.Minute)
 	case !opts.Second.und():
@@ -988,7 +992,7 @@ func buddhistDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 	case !opts.Hour.und() && !opts.Minute.und():
 		seq = seqHourMinuteBuddhist(locale, opts)
 	case !opts.Hour.und():
-		seq = seqHourBuddhist(locale, opts.Hour)
+		seq = seqHourBuddhist(locale, opts)
 	case !opts.Minute.und():
 		seq = seqMinuteBuddhist(locale, opts.Minute)
 	case !opts.Second.und():

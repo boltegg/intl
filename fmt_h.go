@@ -5,14 +5,26 @@ import (
 	"golang.org/x/text/language"
 )
 
-func seqHour(locale language.Tag, opt Hour) *symbols.Seq {
-	return symbols.NewSeq(locale).Add(opt.symbol())
+func seqHour(locale language.Tag, opts Options) *symbols.Seq {
+	seq := symbols.NewSeq(locale).Add(opts.hourSymbol(locale))
+	if opts.use12Hour(locale) {
+		seq.Add(symbols.TxtSpace, symbols.Symbol_a)
+	}
+	return seq
 }
 
-func seqHourPersian(locale language.Tag, opt Hour) *symbols.Seq {
-	return symbols.NewSeq(locale).Add(opt.symbol())
+func seqHourPersian(locale language.Tag, opts Options) *symbols.Seq {
+	seq := symbols.NewSeq(locale).Add(opts.hourSymbol(locale))
+	if opts.use12Hour(locale) {
+		seq.Add(symbols.TxtSpace, symbols.Symbol_a)
+	}
+	return seq
 }
 
-func seqHourBuddhist(locale language.Tag, opt Hour) *symbols.Seq {
-	return symbols.NewSeq(locale).Add(opt.symbol())
+func seqHourBuddhist(locale language.Tag, opts Options) *symbols.Seq {
+	seq := symbols.NewSeq(locale).Add(opts.hourSymbol(locale))
+	if opts.use12Hour(locale) {
+		seq.Add(symbols.TxtSpace, symbols.Symbol_a)
+	}
+	return seq
 }
