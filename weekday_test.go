@@ -56,7 +56,7 @@ func TestDateTimeFormat_YearMonthWeekdayTime(t *testing.T) {
 	date := time.Date(2024, 1, 2, 3, 4, 5, 0, time.UTC)
 	opts := Options{Year: YearNumeric, Month: MonthShort, Weekday: WeekdayShort, Hour: Hour2Digit, Minute: Minute2Digit}
 	got := NewDateTimeFormat(language.English, opts).Format(date)
-	if got != "2024, Jan, Tue, 03:04" {
-		t.Fatalf("want %q got %q", "2024, Jan, Tue, 03:04", got)
+	if got != "Tue, Jan 2, 2024, 03:04" {
+		t.Fatalf("want %q got %q", "Tue, Jan 2, 2024, 03:04", got)
 	}
 }

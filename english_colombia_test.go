@@ -91,3 +91,20 @@ func TestDateTimeFormat_EnglishColombiaMMMMEEEEd(t *testing.T) {
 		t.Fatalf("want %q got %q", want, got)
 	}
 }
+
+func TestDateTimeFormat_EnglishColombiaYMMMMdjm(t *testing.T) {
+	t.Parallel()
+
+	date := time.Date(2023, 8, 15, 14, 5, 0, 0, time.UTC)
+	locale := language.MustParse("en-CO")
+
+	fmt, err := NewDateTimeFormatLayout(locale, "yMMMMdjmm")
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := fmt.Format(date)
+	want := "15 August 2023, 2:05 PM"
+	if got != want {
+		t.Fatalf("want %q got %q", want, got)
+	}
+}
