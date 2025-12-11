@@ -31,12 +31,13 @@ func seqMonthWeekdayTime(locale language.Tag, opts Options) *symbols.Seq {
 
 func seqYearMonthWeekdayTime(locale language.Tag, opts Options) *symbols.Seq {
 	seq := symbols.NewSeq(locale)
-	seq.Add(opts.Year.symbol(), symbols.TxtComma, symbols.TxtSpace, opts.Month.symbolFormat(), symbols.TxtComma, symbols.TxtSpace, opts.Weekday.symbol(), symbols.TxtComma, symbols.TxtSpace, opts.hourSymbol(locale), symbols.TxtColon, opts.Minute.symbol())
+	seq.AddSeq(seqWeekdayYearMonthDay(locale, opts))
+	seq.Add(symbols.TxtComma, symbols.TxtSpace)
 	if !opts.Second.und() {
-		seq.Add(symbols.TxtColon, opts.Second.symbol())
+		seq.AddSeq(seqHourMinuteSecond(locale, opts))
+		return seq
 	}
-	if opts.use12Hour(locale) {
-		seq.Add(symbols.TxtSpace, symbols.Symbol_a)
-	}
+
+	seq.AddSeq(seqHourMinute(locale, opts))
 	return seq
 }
