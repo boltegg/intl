@@ -26,6 +26,7 @@ func TestDateTimeFormat_UkrainianUkraine(t *testing.T) {
 		{"yMMMMdjm", "yMMMMdjmm", time.Date(2023, 8, 15, 14, 5, 0, 0, time.UTC), "15 серпня 2023 р., 14:05"},
 		{"yMMMdjhm", "yMMMdjm", time.Date(2022, 12, 1, 9, 30, 0, 0, time.UTC), "1 груд. 2022 р., 09:30"},
 		{"yMMMEEEEdjms", "yMMMEEEEdjms", time.Date(2021, 1, 4, 16, 45, 9, 0, time.UTC), "понеділок, 4 січ. 2021 р., 16:45:09"},
+		{"EEEd", "EEEd", time.Date(2020, 5, 6, 0, 0, 0, 0, time.UTC), "ср 6"},
 	}
 
 	for _, tt := range tests {

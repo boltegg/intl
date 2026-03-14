@@ -838,6 +838,8 @@ func gregorianDateTimeFormat(locale language.Tag, opts Options) fmtFunc {
 		seq = seqMonth(locale, opts.Month)
 	case !opts.Weekday.und() && !opts.Hour.und() && !opts.Minute.und():
 		seq = seqWeekdayTime(locale, opts)
+	case !opts.Weekday.und() && !opts.Day.und():
+		seq = seqWeekdayDay(locale, opts)
 	case !opts.Weekday.und():
 		seq = seqWeekday(locale, opts.Weekday)
 	case !opts.Day.und():
